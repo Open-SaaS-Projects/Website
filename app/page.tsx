@@ -11,6 +11,13 @@ import CompanyBlock from "@/components/CompanyBlock";
 import ValueCard from "@/components/ValueCard";
 import CircularLogo from "@/components/CircularLogo";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { servicesData } from "@/data/services";
 import { companyData } from "@/data/company";
@@ -35,16 +42,18 @@ export default function LandingPage() {
       {/* Header */}
       <MainNavigation />
 
-      <main className="flex-1 container max-w-7xl mx-auto px-4 py-8 md:py-16 lg:py-20">
+      <main className="flex-1">
         {/* Hero Section */}
-        <HeroSection />
+        <div className="container max-w-7xl mx-auto px-4 py-8 md:py-16 lg:py-20">
+          <HeroSection />
+        </div>
 
         {/* Features Section - Now using the AgentCarousel component */}
         <section
           id="features"
-          className="w-full py-8 md:py-16 lg:py-20 bg-muted/50 rounded-2xl mb-8"
+          className="w-full py-8 md:py-16 lg:py-20 bg-muted/50"
         >
-          <div className="container mx-auto px-4 md:px-6">
+          <div className="container max-w-7xl mx-auto px-4 md:px-6">
             <AnimateOnScroll>
               {/* Add an ID to the heading for scroll targeting */}
               <h2
@@ -61,9 +70,9 @@ export default function LandingPage() {
         {/* Services Section */}
         <section
           id="services"
-          className="w-full py-8 md:py-16 lg:py-20 bg-gradient-to-r from-[#F5F3FF] to-[#EDE9FE] rounded-2xl mb-8"
+          className="w-full py-8 md:py-16 lg:py-20 bg-gradient-to-r from-[#F5F3FF] to-[#EDE9FE]"
         >
-          <div className="container mx-auto px-4 md:px-6">
+          <div className="container max-w-7xl mx-auto px-4 md:px-6">
             <AnimateOnScroll>
               <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8 lg:mb-12">
                 <h2 className="text-3xl font-bold text-[#6320ce]">
@@ -92,9 +101,9 @@ export default function LandingPage() {
         {/* Ready to Use Solutions Section - Integrated */}
         <section
           id="ready-to-use"
-          className="w-full py-8 md:py-16 lg:py-20 bg-white rounded-2xl mb-8"
+          className="w-full py-8 md:py-16 lg:py-20 bg-white mb-8"
         >
-          <div className="container mx-auto px-4 md:px-6">
+          <div className="container max-w-7xl mx-auto px-4 md:px-6">
             <AnimateOnScroll>
               <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8 lg:mb-12">
                 <h2 className="text-3xl font-bold text-[#6320ce]">
@@ -118,13 +127,6 @@ export default function LandingPage() {
                         className="w-24 h-24 object-contain rounded-lg"
                       />
                     </div>
-                    <CardTitle className="text-xl font-bold text-[#6320ce] text-center">
-                      <img
-                        src="https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif"
-                        alt="Customer Support"
-                        className="w-24 h-24 object-contain rounded-lg"
-                      />
-                    </CardTitle>
                     <CardTitle className="text-xl font-bold text-[#6320ce] text-center">
                       Customer Support Agent
                     </CardTitle>
@@ -179,11 +181,8 @@ export default function LandingPage() {
         </section>
 
         {/* Company Section - Updated with Mission, Vision, and Values */}
-        <section
-          id="company"
-          className="w-full py-8 md:py-16 lg:py-20 rounded-2xl mb-8"
-        >
-          <div className="container mx-auto px-4 md:px-6">
+        <section id="company" className="w-full py-8 md:py-16 lg:py-20 mb-8">
+          <div className="container max-w-7xl mx-auto px-4 md:px-6">
             {/* Company Logo at the top */}
             <AnimateOnScroll>
               <div className="text-center mb-8">
