@@ -34,7 +34,7 @@ export default function page() {
           gifPosition === "right" ? "lg:flex-row-reverse" : ""
         }`}
       >
-        <div className="w-full lg:w-1/2 flex justify-start mx-auto">
+        <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
           <ReadyToUseGif
             gifUrl={gifUrl}
             title={title}
@@ -43,7 +43,7 @@ export default function page() {
         </div>
         <div
           className={`flex flex-col w-full lg:w-1/2 space-y-8 text-center lg:text-left ${
-            gifPosition === "left" ? "lg:ml-16" : "lg:mr-16"
+            gifPosition === "left" ? "lg:ml-32" : "lg:mr-32"
           }`}
         >
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
@@ -74,7 +74,7 @@ export default function page() {
       <AnimateOnScroll>
         <div className="flex flex-col items-center justify-center space-y-6 text-center w-full py-12 md:py-16 lg:py-20 bg-gradient-to-b from-[#F5F3FF] to-white">
           <div className="space-y-4">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-[#6320ce]">
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tighter text-[#6320ce]">
               Ready to Use Solutions
             </h1>
             <p className="max-w-[700px] text-muted-foreground text-lg md:text-xl lg:text-2xl leading-relaxed px-6 md:px-8">

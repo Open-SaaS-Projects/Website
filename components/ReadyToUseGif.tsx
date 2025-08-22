@@ -12,7 +12,7 @@ export default function ReadyToUseGif({
   gifPosition = "left",
 }: ReadyToUseGifProps) {
   return (
-    <div className="flex items-start w-auto justify-center md:justify-start">
+    <div className="flex items-start w-auto justify-center md:justify-center">
       <img
         src={gifUrl}
         alt={title}
