@@ -122,7 +122,7 @@ export default function LandingPage() {
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-center mb-4">
                       <img
-                        src="https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif"
+                        src="/customer-support.gif"
                         alt="Customer Support"
                         className="w-24 h-24 object-contain rounded-lg"
                       />
@@ -146,7 +146,7 @@ export default function LandingPage() {
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-center mb-4">
                       <img
-                        src="https://media.giphy.com/media/3o7aCSPyU4a1g1fX3G/giphy.gif"
+                        src="/document-intelligence.gif"
                         alt="Document Intelligence"
                         className="w-24 h-24 object-contain rounded-lg"
                       />
