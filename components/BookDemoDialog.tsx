@@ -24,17 +24,19 @@ import {
 interface BookDemoDialogProps {
   isOpen: boolean;
   onClose: () => void;
+  selectedDemoType?: string;
 }
 
 export default function BookDemoDialog({
   isOpen,
   onClose,
+  selectedDemoType,
 }: BookDemoDialogProps) {
   const [formData, setFormData] = useState({
     fullName: "",
     companyName: "",
     contactEmail: "",
-    demoType: "",
+    demoType: selectedDemoType || "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -82,7 +84,7 @@ export default function BookDemoDialog({
         fullName: "",
         companyName: "",
         contactEmail: "",
-        demoType: "",
+        demoType: selectedDemoType || "",
       });
       setErrors({});
       onClose();
@@ -104,9 +106,12 @@ export default function BookDemoDialog({
     }
   };
 
-  // Remove focus when dialog opens
+  // Set selected demo type when dialog opens
   useEffect(() => {
     if (isOpen) {
+      if (selectedDemoType) {
+        setFormData(prev => ({ ...prev, demoType: selectedDemoType }));
+      }
       // Small delay to ensure dialog is rendered
       setTimeout(() => {
         const activeElement = document.activeElement as HTMLElement;
@@ -115,7 +120,7 @@ export default function BookDemoDialog({
         }
       }, 100);
     }
-  }, [isOpen]);
+  }, [isOpen, selectedDemoType]);
 
   const handleClose = () => {
     // Clear form state when dialog closes
@@ -123,7 +128,7 @@ export default function BookDemoDialog({
       fullName: "",
       companyName: "",
       contactEmail: "",
-      demoType: "",
+      demoType: selectedDemoType || "",
     });
     setErrors({});
     onClose();

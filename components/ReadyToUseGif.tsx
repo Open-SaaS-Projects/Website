@@ -12,11 +12,11 @@ export default function ReadyToUseGif({
   gifPosition = "left",
 }: ReadyToUseGifProps) {
   return (
-    <div className="flex items-start w-auto justify-center md:justify-center">
+    <div className="flex items-start w-auto justify-center">
       <img
         src={gifUrl}
         alt={title}
-        className="max-w-md max-h-full object-contain rounded-lg shadow-md"
+        className="max-w-xs md:max-w-md max-h-full object-contain rounded-lg shadow-md"
       />
     </div>
   );

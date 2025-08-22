@@ -11,6 +11,7 @@ import ReadyToUseGif from "@/components/ReadyToUseGif";
 
 export default function page() {
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
+  const [selectedDemoType, setSelectedDemoType] = useState<string>("");
 
   // Array of random GIF URLs (you can replace these with your preferred GIFs)
   const gifUrls = ["https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif"];
@@ -20,6 +21,7 @@ export default function page() {
     description: string;
     gifUrl: string;
     gifPosition?: "left" | "right";
+    onBookDemo: () => void;
   }
 
   function ReadyToUseSection({
@@ -27,10 +29,11 @@ export default function page() {
     description,
     gifUrl,
     gifPosition = "left",
+    onBookDemo,
   }: ReadyToUseProps) {
     return (
       <section
-        className={`flex flex-col lg:flex-row items-center max-w-7xl mx-auto py-16 md:py-20 lg:py-24 space-y-12 lg:space-y-0 px-6 md:px-12 lg:px-16 xl:px-24 ${
+        className={`flex flex-col lg:flex-row items-center max-w-7xl lg:mx-auto py-16 md:py-20 lg:py-24 space-y-12 lg:space-y-0 px-6 md:px-12 lg:px-16 xl:px-24 ${
           gifPosition === "right" ? "lg:flex-row-reverse" : ""
         }`}
       >
@@ -46,23 +49,19 @@ export default function page() {
             gifPosition === "left" ? "lg:ml-32" : "lg:mr-32"
           }`}
         >
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight">
             {title}
           </h1>
-          <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed max-w-md mx-auto lg:mx-0">
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed max-w-md mx-auto lg:mx-0">
             {description}
           </p>
           <Button
             size="lg"
             className="bg-[#6320ce] hover:bg-[#6320ce]/90 rounded-full px-10 py-4 text-xl font-semibold lg:self-start transition-all duration-300 ease-in-out transform hover:scale-105"
-            onClick={() => setDemoDialogOpen(true)}
+            onClick={onBookDemo}
           >
             Book a Demo
           </Button>
-          <BookDemoDialog
-            isOpen={demoDialogOpen}
-            onClose={() => setDemoDialogOpen(false)}
-          />
         </div>
       </section>
     );
@@ -74,7 +73,7 @@ export default function page() {
       <AnimateOnScroll>
         <div className="flex flex-col items-center justify-center space-y-6 text-center w-full py-12 md:py-16 lg:py-20 bg-gradient-to-b from-[#F5F3FF] to-white">
           <div className="space-y-4">
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tighter text-[#6320ce]">
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl text-[#6320ce]">
               Ready to Use Solutions
             </h1>
             <p className="max-w-[700px] text-muted-foreground text-lg md:text-xl lg:text-2xl leading-relaxed px-6 md:px-8">
@@ -90,6 +89,10 @@ export default function page() {
             description="Ai powered customer service solutions."
             gifUrl="/customer-support.gif"
             gifPosition="left"
+            onBookDemo={() => {
+              setSelectedDemoType("customer-support");
+              setDemoDialogOpen(true);
+            }}
           />
         </div>
         <div className="w-full mx-auto bg-gray-100">
@@ -98,9 +101,18 @@ export default function page() {
             description="Advanced document processing and analysis."
             gifUrl="/document-intelligence.gif"
             gifPosition="right"
+            onBookDemo={() => {
+              setSelectedDemoType("document-intelligence");
+              setDemoDialogOpen(true);
+            }}
           />
         </div>
       </main>
+      <BookDemoDialog
+        isOpen={demoDialogOpen}
+        onClose={() => setDemoDialogOpen(false)}
+        selectedDemoType={selectedDemoType}
+      />
       <MainFooter />
     </div>
   );
