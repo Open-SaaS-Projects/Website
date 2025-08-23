@@ -1,0 +1,110 @@
+
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Build args for potential customization
+      args:
+        NODE_VERSION: 20
+    image: makkn-landing:latest
+    container_name: makkn-landing-web
+    ports:
+      - "3000:3000"
+    environment:
+      # Application environment
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      # Add your custom environment variables here
+      # - NEXT_PUBLIC_API_URL=https://api.example.com
+      # - DATABASE_URL=your_database_url_here
+      # - SMTP_HOST=your_smtp_host
+      # - SMTP_PORT=587
+      # - SMTP_USER=your_smtp_user
+      # - SMTP_PASS=your_smtp_password
+    # Environment file (create this file with your actual environment variables)
+    env_file:
+      - .env.production
+    restart: unless-stopped
+    # Health check configuration
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Resource limits (adjust based on your needs)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Network configuration
+    networks:
+      - makkn-network
+
+# Optional: Add a reverse proxy (uncomment if needed)
+# nginx:
+#   image: nginx:alpine
+#   container_name: makkn-nginx
+#   ports:
+#     - "80:80"
+#     - "443:443"
+#   volumes:
+#     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+#     - ./ssl:/etc/nginx/ssl:ro
+#   depends_on:
+#     - web
+#   restart: unless-stopped
+#   networks:
+#     - makkn-network
+
+# Optional: Add a database (uncomment if needed)
+# postgres:
+#   image: postgres:15-alpine
+#   container_name: makkn-postgres
+#   environment:
+#     - POSTGRES_DB=makkn
+#     - POSTGRES_USER=makkn_user
+#     - POSTGRES_PASSWORD=your_secure_password
+#   volumes:
+#     - postgres_data:/var/lib/postgresql/data
+#     - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#   ports:
+#     - "5432:5432"
+#   restart: unless-stopped
+#   networks:
+#     - makkn-network
+
+# Optional: Add Redis for caching (uncomment if needed)
+# redis:
+#   image: redis:7-alpine
+#   container_name: makkn-redis
+#   command: redis-server --appendonly yes
+#   volumes:
+#     - redis_data:/data
+#   ports:
+#     - "6379:6379"
+#   restart: unless-stopped
+#   networks:
+#     - makkn-network
+
+networks:
+  makkn-network:
+    driver: bridge
+
+# Volumes for persistent data (uncomment if using database/redis)
+# volumes:
+#   postgres_data:
+#   redis_data:
