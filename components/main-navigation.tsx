@@ -92,6 +92,12 @@ export default function MainNavigation() {
             Services
           </Link>
           <Link
+            href="/ready-to-use"
+            className="text-sm font-medium transition-colors hover:text-[#6D2FD5]"
+          >
+            Ready to Use
+          </Link>
+          <Link
             href="/#company"
             className="text-sm font-medium transition-colors hover:text-[#6D2FD5]"
           >
@@ -108,12 +114,6 @@ export default function MainNavigation() {
             className="text-sm font-medium transition-colors hover:text-[#6D2FD5]"
           >
             Contact
-          </Link>
-          <Link
-            href="/ready-to-use"
-            className="text-sm font-medium transition-colors hover:text-[#6D2FD5]"
-          >
-            Ready to Use
           </Link>
         </nav>
 

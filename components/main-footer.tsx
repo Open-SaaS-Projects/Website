@@ -55,6 +55,8 @@ export default function MainFooter() {
               <Link
                 href="https://www.linkedin.com/company/makkn/"
                 className="text-muted-foreground hover:text-[#6D2FD5]"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>

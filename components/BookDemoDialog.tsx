@@ -110,7 +110,7 @@ export default function BookDemoDialog({
   useEffect(() => {
     if (isOpen) {
       if (selectedDemoType) {
-        setFormData(prev => ({ ...prev, demoType: selectedDemoType }));
+        setFormData((prev) => ({ ...prev, demoType: selectedDemoType }));
       }
       // Small delay to ensure dialog is rendered
       setTimeout(() => {
@@ -250,9 +250,7 @@ export default function BookDemoDialog({
                     >
                       <div>
                         <div className="font-medium">Customer Support</div>
-                        <div className="text-sm text-gray-600">
-                          AI-powered customer service solutions
-                        </div>
+                        <div className="text-sm text-gray-600">AI-Powered</div>
                       </div>
                     </SelectItem>
                     <SelectItem
