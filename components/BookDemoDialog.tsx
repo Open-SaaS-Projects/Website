@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
 import {
   Dialog,
   DialogOverlay,
@@ -75,9 +76,17 @@ export default function BookDemoDialog({
     setIsSubmitting(true);
 
     try {
-      // Here you would submit to your backend API
-      // For now, we'll just simulate a submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await emailjs.send(
+        "service_itl2c2y",
+        "template_wp6nnl8",
+        {
+          full_name: formData.fullName,
+          company_name: formData.companyName,
+          email: formData.contactEmail,
+          demo_type: formData.demoType,
+        },
+        "9tPvq2AnuC0zFuYFU"
+      );
 
       // Reset form and close dialog
       setFormData({
@@ -250,7 +259,7 @@ export default function BookDemoDialog({
                     >
                       <div>
                         <div className="font-medium">Customer Support</div>
-                        <div className="text-sm text-gray-600">AI-Powered</div>
+                        <div className="text-sm text-gray-600">AI-powered</div>
                       </div>
                     </SelectItem>
                     <SelectItem

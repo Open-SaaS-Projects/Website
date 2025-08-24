@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import AnimateOnScroll from "@/components/animate-on-scroll";
-import { submitContactForm } from "@/app/actions/contact";
+import emailjs from "@emailjs/browser";
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
 
@@ -24,32 +24,29 @@ export default function ContactPage() {
     setFormError(null);
     setSuccessMessage(null);
 
+    const form = e.currentTarget as HTMLFormElement;
+
     try {
-      const formData = new FormData(e.target as HTMLFormElement);
-      const result = await submitContactForm(formData);
+      await emailjs.sendForm(
+        "service_itl2c2y",
+        "template_wp6nnl8",
+        form,
+        "9tPvq2AnuC0zFuYFU"
+      );
 
-      if (result.success) {
-        setFormSubmitted(true);
-        setSuccessMessage(
-          result.message || "Your message has been sent successfully!"
-        );
+      setFormSubmitted(true);
+      setSuccessMessage("Your message has been sent successfully!");
 
-        // Reset form after 5 seconds
-        setTimeout(() => {
-          setFormSubmitted(false);
-          setSuccessMessage(null);
-          const form = e.target as HTMLFormElement;
-          form.reset();
-        }, 5000);
-      } else {
-        setFormError(
-          result.error || "An error occurred while sending your message."
-        );
-      }
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        setFormSubmitted(false);
+        setSuccessMessage(null);
+        form.reset();
+      }, 5000);
     } catch (error) {
-      console.error("Form submission error:", error);
+      console.error("EmailJS error:", error);
       setFormError(
-        "An unexpected error occurred. Please try again or email us directly at info@makkn.com."
+        "An unexpected error occurred. Please try again or email us directly."
       );
     } finally {
       setIsLoading(false);
@@ -108,39 +105,39 @@ export default function ContactPage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="company">Company Name *</Label>
+                      <Label htmlFor="company_name">Company Name *</Label>
                       <Input
-                        id="company"
-                        name="company"
+                        id="company_name"
+                        name="company_name"
                         placeholder="Your Company"
                         required
                       />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name *</Label>
+                        <Label htmlFor="first_name">First Name *</Label>
                         <Input
-                          id="firstName"
-                          name="firstName"
+                          id="first_name"
+                          name="first_name"
                           placeholder="First Name"
                           required
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name *</Label>
+                        <Label htmlFor="last_name">Last Name *</Label>
                         <Input
-                          id="lastName"
-                          name="lastName"
+                          id="last_name"
+                          name="last_name"
                           placeholder="Last Name"
                           required
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="jobTitle">Job Title *</Label>
+                      <Label htmlFor="job_title">Job Title *</Label>
                       <Input
-                        id="jobTitle"
-                        name="jobTitle"
+                        id="job_title"
+                        name="job_title"
                         placeholder="Your Position"
                         required
                       />
