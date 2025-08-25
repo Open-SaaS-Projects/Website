@@ -58,7 +58,7 @@ export default function LandingPage() {
               {/* Add an ID to the heading for scroll targeting */}
               <h2
                 id="features-heading"
-                className="text-3xl font-bold text-[#6320ce] text-center mb-14 lg:mb-12"
+                className="text-3xl font-bold text-[#6320ce] text-center mb-20 lg:mb-12"
               >
                 Our Solutions
               </h2>

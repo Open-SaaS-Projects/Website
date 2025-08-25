@@ -55,9 +55,9 @@ export default function MobileMenu({
         {[
           { name: "Company", href: "/#company" },
           { name: "Services", href: "/#services" },
+          { name: "Ready to Use", href: "/ready-to-use" },
           { name: "Careers", href: "/careers" },
           { name: "Contact", href: "/contact" },
-          { name: "Ready to Use", href: "/ready-to-use" },
         ].map((link) => (
           <Link
             key={link.name}
