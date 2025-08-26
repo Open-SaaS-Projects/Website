@@ -14,6 +14,7 @@ import { submitCareerApplication } from "@/app/actions/careers";
 // Import the MainNavigation and MainFooter components
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function CareersPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -346,6 +347,7 @@ export default function CareersPage() {
 
       {/* Footer */}
       <MainFooter />
+      <Chatbot />
     </div>
   );
 }

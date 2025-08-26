@@ -4,6 +4,7 @@ import { useEffect } from "react";
 // Import the MainNavigation and MainFooter components
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function TermsOfService() {
   // Scroll to top on page load
@@ -270,6 +271,7 @@ export default function TermsOfService() {
 
       {/* Replace the footer with MainFooter */}
       <MainFooter />
+      <Chatbot />
     </div>
   );
 }

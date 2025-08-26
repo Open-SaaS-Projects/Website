@@ -14,6 +14,7 @@ import AnimateOnScroll from "@/components/animate-on-scroll";
 // Import the MainNavigation and MainFooter components
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function RecruitingAgentPage() {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -307,6 +308,7 @@ export default function RecruitingAgentPage() {
 
       {/* Replace the footer with MainFooter */}
       <MainFooter />
+      <Chatbot />
     </div>
   );
 }

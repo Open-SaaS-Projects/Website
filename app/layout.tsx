@@ -1,6 +1,14 @@
 import type React from "react";
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
 import "./globals.css";
+import ContextProvider from "../contexts/ChatbotContext";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+});
 
 export const metadata: Metadata = {
   title: "MAKKN - AI Solutions for Businesses",
@@ -19,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${poppins.variable} font-sans`}>
+        <ContextProvider>{children}</ContextProvider>
+      </body>
     </html>
   );
 }

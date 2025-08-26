@@ -6,6 +6,7 @@ import { useState } from "react";
 // Import the MainNavigation and MainFooter components
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
+import Chatbot from "@/components/Chatbot";
 import Link from "next/link";
 
 export default function RecommendationEnginePage() {
@@ -276,6 +277,7 @@ export default function RecommendationEnginePage() {
 
       {/* Replace the footer with MainFooter */}
       <MainFooter />
+      <Chatbot />
     </div>
   );
 }

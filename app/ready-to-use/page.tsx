@@ -8,6 +8,7 @@ import AnimateOnScroll from "@/components/animate-on-scroll";
 import { useState } from "react";
 import React from "react";
 import ReadyToUseGif from "@/components/ReadyToUseGif";
+<<<<<<< Updated upstream
 import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
@@ -15,6 +16,9 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-poppins",
 });
+=======
+import Chatbot from "@/components/Chatbot";
+>>>>>>> Stashed changes
 
 export default function page() {
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
@@ -123,6 +127,7 @@ export default function page() {
         selectedDemoType={selectedDemoType}
       />
       <MainFooter />
+      <Chatbot />
     </div>
   );
 }

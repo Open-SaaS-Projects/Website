@@ -7,6 +7,7 @@ import Link from "next/link";
 // Import the MainNavigation and MainFooter components
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function CustomerSupportAgentPage() {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -277,6 +278,7 @@ export default function CustomerSupportAgentPage() {
 
       {/* Replace the footer with MainFooter */}
       <MainFooter />
+      <Chatbot />
     </div>
   );
 }

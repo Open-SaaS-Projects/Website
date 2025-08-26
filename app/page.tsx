@@ -23,6 +23,7 @@ import { servicesData } from "@/data/services";
 import { companyData } from "@/data/company";
 import { valuesData } from "@/data/values";
 import Link from "next/link";
+import Chatbot from "@/components/Chatbot";
 
 export default function LandingPage() {
   const [isClient, setIsClient] = useState(false);
@@ -167,6 +168,9 @@ export default function LandingPage() {
 
       {/* Footer */}
       <MainFooter />
+
+      {/* Chatbot */}
+      <Chatbot />
     </div>
   );
 }
