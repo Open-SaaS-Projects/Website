@@ -28,19 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-sans`}>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        <ContextProvider>{children}</ContextProvider>
-=======
         <ContextProvider>
           {children}
         </ContextProvider>
->>>>>>> Stashed changes
-=======
-        <ContextProvider>
-          {children}
-        </ContextProvider>
->>>>>>> Stashed changes
       </body>
     </html>
   );
