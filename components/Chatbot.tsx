@@ -2,7 +2,11 @@
 
 import React, { useState, useRef, useEffect, useContext } from "react";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { User, X, Send, Trash2 } from "lucide-react";
+=======
+import { User, X, Send } from "lucide-react";
+>>>>>>> Stashed changes
 =======
 import { User, X, Send } from "lucide-react";
 >>>>>>> Stashed changes
@@ -19,7 +23,11 @@ export default function Chatbot() {
   const [isExpanded, setIsExpanded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+  
+>>>>>>> Stashed changes
 =======
   
 >>>>>>> Stashed changes
@@ -34,7 +42,11 @@ export default function Chatbot() {
     showResult,
     resultData,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     newChat,
+=======
+    newChat
+>>>>>>> Stashed changes
 =======
     newChat
 >>>>>>> Stashed changes
@@ -63,7 +75,11 @@ export default function Chatbot() {
   // Convert context data to messages format for display
   const messages = [];
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+  
+>>>>>>> Stashed changes
 =======
   
 >>>>>>> Stashed changes
@@ -79,12 +95,18 @@ export default function Chatbot() {
 
   // Add previous conversation (excluding the last one if it's currently being animated)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const showAnimated =
     loading || (showResult && resultData && prevResults.length > 0);
   const resultsToShow = showAnimated
     ? prevResults.length - 1
     : prevResults.length;
 
+=======
+  const showAnimated = loading || (showResult && resultData && prevResults.length > 0);
+  const resultsToShow = showAnimated ? prevResults.length - 1 : prevResults.length;
+  
+>>>>>>> Stashed changes
 =======
   const showAnimated = loading || (showResult && resultData && prevResults.length > 0);
   const resultsToShow = showAnimated ? prevResults.length - 1 : prevResults.length;
@@ -98,7 +120,11 @@ export default function Chatbot() {
       timestamp: new Date(),
     });
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
 =======
     
 >>>>>>> Stashed changes
@@ -138,7 +164,11 @@ export default function Chatbot() {
           onClick={() => setIsExpanded(true)}
           className="w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           style={{ backgroundColor: "#6320ce" }}
+=======
+          style={{ backgroundColor: '#6320ce' }}
+>>>>>>> Stashed changes
 =======
           style={{ backgroundColor: '#6320ce' }}
 >>>>>>> Stashed changes
@@ -147,6 +177,7 @@ export default function Chatbot() {
         </button>
       ) : (
         // Expanded chatbot box
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
         <div className="w-full max-w-md h-auto max-h-[450px] bg-white/30 backdrop-blur-xl rounded-lg shadow-2xl border border-gray-200/50 flex flex-col m-4 sm:m-0">
           {/* Header */}
@@ -171,6 +202,8 @@ export default function Chatbot() {
               </button>
             </div>
 =======
+=======
+>>>>>>> Stashed changes
         <div className="w-96 h-auto max-h-450px bg-white/30 backdrop-blur-xl rounded-lg shadow-2xl border border-gray-200/50 flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200/50 text-white rounded-t-xl" style={{ backgroundColor: '#6320ce' }}>
@@ -181,6 +214,9 @@ export default function Chatbot() {
             >
               <X className="w-5 h-5" />
             </button>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
           </div>
 
@@ -196,15 +232,21 @@ export default function Chatbot() {
                 <div
                   className={`max-w-xs p-3 rounded-lg ${
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     message.isUser ? "text-white" : "bg-gray-100 text-gray-800"
                   }`}
                   style={message.isUser ? { backgroundColor: "#6320ce" } : {}}
 =======
+=======
+>>>>>>> Stashed changes
                     message.isUser
                       ? "text-white"
                       : "bg-gray-100 text-gray-800"
                   }`}
                   style={message.isUser ? { backgroundColor: '#6320ce' } : {}}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                 >
                   {message.isUser ? (
@@ -234,6 +276,7 @@ export default function Chatbot() {
                 onClick={handleSendMessage}
                 className="px-4 py-2 text-white rounded-lg transition-colors"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 style={{ backgroundColor: "#6320ce" }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.backgroundColor = "#5a1cbb")
@@ -241,6 +284,11 @@ export default function Chatbot() {
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "#6320ce")
                 }
+=======
+                style={{ backgroundColor: '#6320ce' }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5a1cbb'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#6320ce'}
+>>>>>>> Stashed changes
 =======
                 style={{ backgroundColor: '#6320ce' }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5a1cbb'}
