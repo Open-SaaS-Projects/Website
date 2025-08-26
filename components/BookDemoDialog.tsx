@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import emailjs from "@emailjs/browser";
+import { submitDemoRequest } from "@/app/actions/book-demo";
 import {
   Dialog,
   DialogOverlay,
@@ -42,6 +42,8 @@ export default function BookDemoDialog({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formError, setFormError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -74,34 +76,59 @@ export default function BookDemoDialog({
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setFormError(null);
+    setSuccessMessage(null);
 
     try {
-      await emailjs.send(
-        "service_itl2c2y",
-        "template_wp6nnl8",
-        {
-          full_name: formData.fullName,
-          company_name: formData.companyName,
-          email: formData.contactEmail,
-          demo_type: formData.demoType,
-        },
-        "9tPvq2AnuC0zFuYFU"
-      );
+      const formDataObj = new FormData();
+      formDataObj.append("fullName", formData.fullName);
+      formDataObj.append("companyName", formData.companyName);
+      formDataObj.append("contactEmail", formData.contactEmail);
+      formDataObj.append("demoType", formData.demoType);
 
-      // Reset form and close dialog
-      setFormData({
-        fullName: "",
-        companyName: "",
-        contactEmail: "",
-        demoType: selectedDemoType || "",
-      });
-      setErrors({});
-      onClose();
+      console.log("Submitting demo request with data:", formData);
 
-      // You could show a success toast here
-      console.log("Demo request submitted:", formData);
+      const result = await submitDemoRequest(formDataObj);
+
+      console.log("Demo request result:", result);
+
+      if (result.success) {
+        setSuccessMessage(
+          result.message || "Your demo request has been submitted successfully!"
+        );
+
+        // Reset form and close dialog after showing success
+        setTimeout(() => {
+          setFormData({
+            fullName: "",
+            companyName: "",
+            contactEmail: "",
+            demoType: selectedDemoType || "",
+          });
+          setErrors({});
+          setSuccessMessage(null);
+          onClose();
+        }, 2000);
+      } else {
+        console.error(
+          "Demo request failed:",
+          result.error,
+          result.details
+        );
+        setFormError(
+          result.error || "An error occurred while submitting your demo request."
+        );
+
+        // Show additional details in development
+        if (process.env.NODE_ENV === "development" && result.details) {
+          setFormError(`${result.error}\n\nDetails: ${result.details}`);
+        }
+      }
     } catch (error) {
-      console.error("Error submitting demo request:", error);
+      console.error("Form submission error:", error);
+      setFormError(
+        "An unexpected error occurred. Please try again or contact us directly at info@makkn.com."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -140,6 +167,8 @@ export default function BookDemoDialog({
       demoType: selectedDemoType || "",
     });
     setErrors({});
+    setFormError(null);
+    setSuccessMessage(null);
     onClose();
   };
 
@@ -162,6 +191,19 @@ export default function BookDemoDialog({
               Get a personalized demo of our AI solutions
             </p>
           </DialogHeader>
+
+          {/* Error/Success Messages */}
+          {formError && (
+            <div className="mx-6 mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+              {formError}
+            </div>
+          )}
+
+          {successMessage && (
+            <div className="mx-6 mb-4 p-4 bg-green-50 border border-green-200 rounded-lg text-green-600 text-sm">
+              {successMessage}
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="px-6 pb-6">

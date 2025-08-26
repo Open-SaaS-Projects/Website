@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import AnimateOnScroll from "@/components/animate-on-scroll";
-import emailjs from "@emailjs/browser";
+import { submitContactForm } from "@/app/actions/contact";
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
 
@@ -24,29 +24,72 @@ export default function ContactPage() {
     setFormError(null);
     setSuccessMessage(null);
 
-    const form = e.currentTarget as HTMLFormElement;
-
     try {
-      await emailjs.sendForm(
-        "service_itl2c2y",
-        "template_wp6nnl8",
-        form,
-        "9tPvq2AnuC0zFuYFU"
-      );
+      const formData = new FormData(e.target as HTMLFormElement);
 
-      setFormSubmitted(true);
-      setSuccessMessage("Your message has been sent successfully!");
+      // Client-side validation before sending
+      const firstName = formData.get("firstName") as string;
+      const lastName = formData.get("lastName") as string;
+      const email = formData.get("email") as string;
+      const company = formData.get("company") as string;
+      const jobTitle = formData.get("jobTitle") as string;
+      const message = formData.get("message") as string;
 
-      // Reset form after 5 seconds
-      setTimeout(() => {
-        setFormSubmitted(false);
-        setSuccessMessage(null);
-        form.reset();
-      }, 5000);
+      if (
+        !firstName ||
+        !lastName ||
+        !email ||
+        !company ||
+        !jobTitle ||
+        !message
+      ) {
+        setFormError(
+          "Please fill in all required fields (First Name, Last Name, Email, Company, Job Title, Message)"
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      console.log("Submitting contact form with data:", {
+        firstName,
+        lastName,
+        email,
+        company,
+        jobTitle,
+      });
+
+      const result = await submitContactForm(formData);
+
+      console.log("Contact form result:", result);
+
+      if (result.success) {
+        setFormSubmitted(true);
+        setSuccessMessage(
+          result.message || "Your message has been sent successfully!"
+        );
+
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setFormSubmitted(false);
+          setSuccessMessage(null);
+          const form = e.target as HTMLFormElement;
+          form.reset();
+        }, 5000);
+      } else {
+        console.error("Contact form failed:", result.error, result.details);
+        setFormError(
+          result.error || "An error occurred while sending your message."
+        );
+
+        // Show additional details in development
+        if (process.env.NODE_ENV === "development" && result.details) {
+          setFormError(`${result.error}\n\nDetails: ${result.details}`);
+        }
+      }
     } catch (error) {
-      console.error("EmailJS error:", error);
+      console.error("Form submission error:", error);
       setFormError(
-        "An unexpected error occurred. Please try again or email us directly."
+        "An unexpected error occurred. Please try again or email us directly at info@makkn.com."
       );
     } finally {
       setIsLoading(false);
@@ -105,39 +148,39 @@ export default function ContactPage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="company_name">Company Name *</Label>
+                      <Label htmlFor="company">Company Name *</Label>
                       <Input
-                        id="company_name"
-                        name="company_name"
+                        id="company"
+                        name="company"
                         placeholder="Your Company"
                         required
                       />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="first_name">First Name *</Label>
+                        <Label htmlFor="firstName">First Name *</Label>
                         <Input
-                          id="first_name"
-                          name="first_name"
+                          id="firstName"
+                          name="firstName"
                           placeholder="First Name"
                           required
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="last_name">Last Name *</Label>
+                        <Label htmlFor="lastName">Last Name *</Label>
                         <Input
-                          id="last_name"
-                          name="last_name"
+                          id="lastName"
+                          name="lastName"
                           placeholder="Last Name"
                           required
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="job_title">Job Title *</Label>
+                      <Label htmlFor="jobTitle">Job Title *</Label>
                       <Input
-                        id="job_title"
-                        name="job_title"
+                        id="jobTitle"
+                        name="jobTitle"
                         placeholder="Your Position"
                         required
                       />

@@ -1,39 +1,52 @@
-"use server"
+"use server";
 
-import { sendEmail, generateContactEmailHTML } from "@/lib/email"
+import { sendEmail, generateContactEmailHTML } from "@/lib/email";
 
 export async function submitContactForm(formData: FormData) {
-  console.log("Contact form submission started")
+  console.log("Contact form submission started");
 
   try {
     // Extract form data
-    const firstName = formData.get("firstName") as string
-    const lastName = formData.get("lastName") as string
-    const email = formData.get("email") as string
-    const company = formData.get("company") as string
-    const jobTitle = formData.get("jobTitle") as string
-    const phone = formData.get("phone") as string
-    const message = formData.get("message") as string
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
+    const email = formData.get("email") as string;
+    const company = formData.get("company") as string;
+    const jobTitle = formData.get("jobTitle") as string;
+    const phone = formData.get("phone") as string;
+    const message = formData.get("message") as string;
 
-    console.log("Form data extracted:", { firstName, lastName, email, company, jobTitle })
+    console.log("Form data extracted:", {
+      firstName,
+      lastName,
+      email,
+      company,
+      jobTitle,
+    });
 
     // Validate required fields
-    if (!firstName || !lastName || !email || !company || !jobTitle || !message) {
-      console.log("Validation failed: missing required fields")
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !company ||
+      !jobTitle ||
+      !message
+    ) {
+      console.log("Validation failed: missing required fields");
       return {
         success: false,
         error: "Please fill in all required fields",
-      }
+      };
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      console.log("Validation failed: invalid email format")
+      console.log("Validation failed: invalid email format");
       return {
         success: false,
         error: "Please enter a valid email address",
-      }
+      };
     }
 
     // Prepare email data
@@ -45,32 +58,33 @@ export async function submitContactForm(formData: FormData) {
       jobTitle,
       phone: phone || undefined,
       message,
-    }
+    };
 
-    console.log("Generating email HTML...")
+    console.log("Generating email HTML...");
     // Generate email HTML
-    const emailHTML = generateContactEmailHTML(emailData)
+    const emailHTML = generateContactEmailHTML(emailData);
 
-    console.log("Sending email to info@makkn.com...")
+    console.log("Sending email to info@makkn.com...");
     // Send email to info@makkn.com
     const emailResult = await sendEmail({
       to: "info@makkn.com",
       subject: `New Contact Form Submission from ${firstName} ${lastName} - ${company}`,
       html: emailHTML,
-    })
+    });
 
-    console.log("Email result:", emailResult)
+    console.log("Email result:", emailResult);
 
     if (!emailResult.success) {
-      console.error("Failed to send contact email:", emailResult.error)
+      console.error("Failed to send contact email:", emailResult.error);
       return {
         success: false,
-        error: "Failed to send email. Please try again or contact us directly at info@makkn.com",
+        error:
+          "Failed to send email. Please try again or contact us directly at info@makkn.com",
         details: emailResult.error,
-      }
+      };
     }
 
-    console.log("Sending confirmation email to user...")
+    console.log("Sending confirmation email to user...");
     // Send confirmation email to the user
     const confirmationHTML = `
       <!DOCTYPE html>
@@ -99,25 +113,27 @@ export async function submitContactForm(formData: FormData) {
         </div>
       </body>
       </html>
-    `
+    `;
 
     await sendEmail({
       to: email,
       subject: "Thank you for contacting MAKKN - We'll be in touch soon",
       html: confirmationHTML,
-    })
+    });
 
-    console.log("Contact form submission completed successfully")
+    console.log("Contact form submission completed successfully");
     return {
       success: true,
-      message: "Your message has been sent successfully. We'll get back to you soon!",
-    }
+      message:
+        "Your message has been sent successfully. We'll get back to you soon!",
+    };
   } catch (error) {
-    console.error("Contact form submission error:", error)
+    console.error("Contact form submission error:", error);
     return {
       success: false,
-      error: "An unexpected error occurred. Please try again or contact us directly at info@makkn.com",
+      error:
+        "An unexpected error occurred. Please try again or contact us directly at info@makkn.com",
       details: error instanceof Error ? error.message : "Unknown error",
-    }
+    };
   }
 }
