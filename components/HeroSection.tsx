@@ -40,7 +40,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="w-full py-4 md:py-20 lg:py-12 xl:py-16 2xl:py-20 relative overflow-hidden">
+    <section className="w-full lg:py-12 relative overflow-hidden">
       <ParticlesBackground />
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <AnimateOnScroll>

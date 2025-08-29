@@ -71,7 +71,7 @@ const ContextProvider = (props: any) => {
     const newPrompts = [...prevPrompts, input];
     setPrevPrompts(newPrompts);
     
-    response = await runChat(input);
+    response = await runChat(input, { prompts: prevPrompts, results: prevResults });
 
     let responseArray = response.split("**");
     let newArray = "";

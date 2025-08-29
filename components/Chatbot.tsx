@@ -51,15 +51,13 @@ export default function Chatbot() {
   // Convert context data to messages format for display
   const messages = [];
 
-  // Add initial greeting if no conversation has started
-  if (prevPrompts.length === 0 && !showResult) {
-    messages.push({
-      id: "greeting",
-      text: "Hello! I'm MAKKN Assistant. How can I help you today?",
-      isUser: false,
-      timestamp: new Date(),
-    });
-  }
+  // Always add initial greeting as the first message
+  messages.push({
+    id: "greeting",
+    text: "Hello! I'm MAKKN Assistant. How can I help you today?",
+    isUser: false,
+    timestamp: new Date(),
+  });
 
   // Add previous conversation (excluding the last one if it's currently being animated)
   const showAnimated = loading || (showResult && resultData && prevResults.length > 0);

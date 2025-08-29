@@ -1,6 +1,7 @@
 "use client";
 
 import type React from "react";
+import { agents } from "../data/agents";
 
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
@@ -10,204 +11,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ChevronLeft,
-  ChevronRight,
-  FileText,
-  MessageSquare,
-  LayoutDashboard,
-  Mail,
-  BarChart3,
-  Database,
-  MousePointer,
-  Layers,
-  Users,
-  Search,
-  TrendingUp,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-
-// Define the agent data structure
-interface AgentFeature {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
-
-interface Agent {
-  name: string;
-  title: string;
-  description: string;
-  path: string;
-  features: AgentFeature[];
-}
-
-// Define the agents data with new names and order
-const agents: Agent[] = [
-  {
-    name: "Customer Support Automation",
-    title: "",
-    description:
-      "Automate your customer support with AI that understands and resolves issues instantly.",
-    path: "/customer-support-agent",
-    features: [
-      {
-        icon: <MessageSquare className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "AI Chat & Email Assistant",
-        description:
-          "Handle repetitive customer queries instantly via chat and email from account issues to FAQ responses.",
-      },
-      {
-        icon: <Layers className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Multichannel Support",
-        description:
-          "Integrates with chat, email, WhatsApp, and social media to offer consistent support everywhere.",
-      },
-      {
-        icon: <BarChart3 className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Auto-Triage & Routing",
-        description:
-          "Classifies and routes tickets to the right human agent or department when needed.",
-      },
-    ],
-  },
-  {
-    name: "AI Talent Assistant",
-    title: "",
-    description:
-      "Automate your hiring to handle high volume, tight deadlines, or complex candidate evaluations.",
-    path: "/recruiting-agent",
-    features: [
-      {
-        icon: <FileText className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "AI Resume Screening",
-        description:
-          "Quickly identify top candidates with AI. Automatically screens, scores, and ranks resumes based on job relevance.",
-      },
-      {
-        icon: <MessageSquare className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "AI Job Profile",
-        description:
-          "Generate tailored job descriptions and interview questions instantly in alignment with your hiring goals.",
-      },
-      {
-        icon: <LayoutDashboard className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Candidates Dashboard",
-        description:
-          "Track, manage, and evaluate applicants from one streamlined dashboard. Send bulk, personalized notifications.",
-      },
-    ],
-  },
-  {
-    name: "Document Intelligence",
-    title: "",
-    description:
-      "Transform unstructured documents and data into organized, actionable insights.",
-    path: "/data-structuring-engine",
-    features: [
-      {
-        icon: <FileText className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Intelligent Document Parsing",
-        description:
-          "Recognizes and categorizes document types. Applies logic based on layout, tone, and content.",
-      },
-      {
-        icon: <Database className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Data Field Extraction",
-        description:
-          "Extracts key fields and converts data into structured formats like JSON, CSV, or database rows.",
-      },
-      {
-        icon: <Search className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Context-Aware NLP Extraction",
-        description:
-          "Extracts entities and insights from free-form text. Tags categories, sentiment, and flags actions needed.",
-      },
-    ],
-  },
-  {
-    name: "Data Intelligence",
-    title: "",
-    description:
-      "Transform raw data into actionable insights with automated pipelines, quality monitoring, and intelligent dashboards.",
-    path: "/data-intelligence",
-    features: [
-      {
-        icon: <Database className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Automated Data Pipelines",
-        description:
-          "Seamlessly extract, clean, transform, and load data from multiple sources into your central system.",
-      },
-      {
-        icon: <BarChart3 className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Dynamic Dashboards & Reports",
-        description:
-          "Generate interactive, role-based dashboards and reports tailored to decision-makers.",
-      },
-      {
-        icon: <Database className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Integration-Ready Architecture",
-        description:
-          "Easily integrates with popular databases, cloud platforms, and BI tools like Power BI and Tableau.",
-      },
-    ],
-  },
-  {
-    name: "Recommendation Engine",
-    title: "",
-    description:
-      "Personalize every user experience with AI that understands preferences and predicts needs.",
-    path: "/recommendation-engine",
-    features: [
-      {
-        icon: <MousePointer className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "User Behavior Tracking",
-        description:
-          "Tracks clicks, searches, purchases, and interactions to understand user preferences.",
-      },
-      {
-        icon: <BarChart3 className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Product/Content Recommendations",
-        description:
-          "Shows the most relevant items or articles to each user in real time.",
-      },
-      {
-        icon: <Users className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Dynamic Segmentation",
-        description:
-          "Automatically groups users into behavioral segments for smarter targeting.",
-      },
-    ],
-  },
-  {
-    name: "Growth Intelligence",
-    title: "",
-    description:
-      "Supercharge your marketing and sales efforts with AI that generates, targets, and converts leads.",
-    path: "/marketing-sales-agent",
-    features: [
-      {
-        icon: <Mail className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "AI Campaign Generator",
-        description:
-          "Instantly create email, ad, and social content tailored to your audience and tone.",
-      },
-      {
-        icon: <BarChart3 className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Lead Scoring Engine",
-        description:
-          "Prioritize leads using behavior, engagement, and fit scoring to improve conversions.",
-      },
-      {
-        icon: <TrendingUp className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Multi-Channel Outreach",
-        description:
-          "Automates email, LinkedIn, and SMS sequences for follow-ups and nurturing.",
-      },
-    ],
-  },
-];
 
 // Define the variants for the animation
 const variants = {
@@ -302,7 +108,6 @@ export default function AgentCarousel() {
     >
       {/* Reduced top margin for mobile view */}
       <div className="flex flex-col items-center justify-center space-y-2 text-center mb-4 mt-4 md:mt-16">
-        {/* Reduced mb-6 to mb-4 and mt-12 to mt-4 */}
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={page}
@@ -332,7 +137,6 @@ export default function AgentCarousel() {
 
       {/* Reduced spacer div height */}
       <div className="h-32 md:h-32 lg:h-12"></div>
-      {/* Reduced from h-32 md:h-32 */}
 
       <div className="mx-auto w-full items-center gap-6 py-4 relative">
         <AnimatePresence initial={false} custom={direction}>
@@ -351,7 +155,7 @@ export default function AgentCarousel() {
           >
             {/* Mobile view - stack cards vertically */}
             <div className="block lg:hidden space-y-6">
-              {currentAgent.features.map((feature, index) => (
+              {currentAgent.features.slice(0, 3).map((feature, index) => (
                 <Card
                   key={index}
                   className="h-full group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-[#6D2FD5]/50"
@@ -369,7 +173,7 @@ export default function AgentCarousel() {
 
             {/* Desktop view - grid layout */}
             <div className="hidden lg:grid lg:grid-cols-3 gap-6">
-              {currentAgent.features.map((feature, index) => (
+              {currentAgent.features.slice(0, 3).map((feature, index) => (
                 <Card
                   key={index}
                   className="h-full group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-[#6D2FD5]/50"
