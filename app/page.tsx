@@ -10,19 +10,12 @@ import ServiceCard from "@/components/ServiceCard";
 import CompanyBlock from "@/components/CompanyBlock";
 import ValueCard from "@/components/ValueCard";
 import CircularLogo from "@/components/CircularLogo";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import { useState, useEffect } from "react";
 import { servicesData } from "@/data/services";
 import { companyData } from "@/data/company";
 import { valuesData } from "@/data/values";
-import Link from "next/link";
+import Chatbot from "@/components/Chatbot";
 
 export default function LandingPage() {
   const [isClient, setIsClient] = useState(false);
@@ -58,7 +51,7 @@ export default function LandingPage() {
               {/* Add an ID to the heading for scroll targeting */}
               <h2
                 id="features-heading"
-                className="text-3xl font-bold text-[#6320ce] text-center mb-14 lg:mb-12"
+                className="text-3xl font-bold text-[#6320ce] text-center mb-20 lg:mb-12"
               >
                 Our Solutions
               </h2>
@@ -167,6 +160,9 @@ export default function LandingPage() {
 
       {/* Footer */}
       <MainFooter />
+
+      {/* Chatbot */}
+      <Chatbot />
     </div>
   );
 }

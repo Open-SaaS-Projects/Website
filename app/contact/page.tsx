@@ -11,6 +11,7 @@ import AnimateOnScroll from "@/components/animate-on-scroll";
 import { submitContactForm } from "@/app/actions/contact";
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -216,6 +217,7 @@ export default function ContactPage() {
       </main>
 
       <MainFooter />
+      <Chatbot />
     </div>
   );
 }
