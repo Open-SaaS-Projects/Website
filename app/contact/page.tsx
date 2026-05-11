@@ -32,7 +32,7 @@ export default function ContactPage() {
       if (result.success) {
         setFormSubmitted(true);
         setSuccessMessage(
-          result.message || "Your message has been sent successfully!"
+          result.message || "Your message has been sent successfully!",
         );
 
         // Reset form after 5 seconds
@@ -44,13 +44,13 @@ export default function ContactPage() {
         }, 5000);
       } else {
         setFormError(
-          result.error || "An error occurred while sending your message."
+          result.error || "An error occurred while sending your message.",
         );
       }
     } catch (error) {
       console.error("Form submission error:", error);
       setFormError(
-        "An unexpected error occurred. Please try again or email us directly at info@makkn.com."
+        "An unexpected error occurred. Please try again or email us directly at info@makkn.com.",
       );
     } finally {
       setIsLoading(false);
@@ -71,8 +71,8 @@ export default function ContactPage() {
                     Contact Us
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground">
-                    Have questions about our products or need a custom solution?
-                    Our team is here to help
+                    Submit your inquiry and our specialists will contact you to
+                    discuss the best approach for your business.
                   </p>
                 </div>
               </div>

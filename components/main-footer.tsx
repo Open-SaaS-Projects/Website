@@ -49,7 +49,7 @@ export default function MainFooter() {
               )}
             </div>
             <p className="text-sm text-muted-foreground">
-              Supercharging your AI transformation since 2025.
+              Supercharging your AI transformation.
             </p>
             <div className="flex gap-4">
               <Link

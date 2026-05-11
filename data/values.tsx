@@ -23,8 +23,8 @@ export const valuesData = [
     ),
   },
   {
-    id: "evolvement",
-    title: "Evolvement",
+    id: "continious-evolution",
+    title: "Continious Evolution",
     description: "Continuously growing and adapting",
     icon: (
       <svg
@@ -45,9 +45,10 @@ export const valuesData = [
     ),
   },
   {
-    id: "support-excellence",
-    title: "Support Excellence",
-    description: "Delivering exceptional customer care",
+    id: "partnership-excellence",
+    title: "Partnership Excellence",
+    description:
+      "Building long-term partnerships through consistent excellence",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +71,8 @@ export const valuesData = [
     ),
   },
   {
-    id: "commitment-to-quality",
-    title: "Commitment to Quality",
+    id: "high-standards",
+    title: "High Standards",
     description: "Ensuring excellence in every solution",
     icon: (
       <svg

@@ -65,39 +65,6 @@ export const agents: Agent[] = [
     ],
   },
   {
-    name: "AI Talent Assistant",
-    title: "",
-    description:
-      "Automate your hiring to handle high volume, tight deadlines, or complex candidate evaluations.",
-    path: "/recruiting-agent",
-    features: [
-      {
-        icon: <FileText className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "AI Resume Screening",
-        description:
-          "Quickly identify top candidates with AI. Automatically screens, scores, and ranks resumes based on job relevance.",
-      },
-      {
-        icon: <MessageSquare className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "AI Job Profile",
-        description:
-          "Generate tailored job descriptions and interview questions instantly in alignment with your hiring goals.",
-      },
-      {
-        icon: <LayoutDashboard className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Candidates Dashboard",
-        description:
-          "Track, manage, and evaluate applicants from one streamlined dashboard. Send bulk, personalized notifications.",
-      },
-      {
-        icon: <Bell className="h-8 w-8 text-[#6D2FD5]" />,
-        title: "Candidate Notification",
-        description:
-          "Send bulk, personalized notifications to keep candidates informed at every stage ensuring a transparent, timely experience.",
-      },
-    ],
-  },
-  {
     name: "Document Intelligence",
     title: "",
     description:

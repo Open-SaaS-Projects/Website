@@ -25,7 +25,7 @@ export const companyData = {
   vision: {
     title: "Our Vision",
     description:
-      "To be the trusted provider of AI Solutions in the MENA Region.",
+      "To be a leading trusted provider of AI Solutions in the MENA Region.",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

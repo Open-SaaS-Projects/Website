@@ -14,27 +14,33 @@ import { SolutionSection } from "@/components/solution-card";
 const solutions = [
   {
     heading: "Eliminates Manual Data Work",
-    description: "No more wasting hours on spreadsheet wrangling—automate your data flow and spend time analyzing, not cleaning."
+    description:
+      "No more wasting hours on spreadsheet wrangling, automate your data flow and spend time analyzing, not cleaning.",
   },
   {
     heading: "Ensures Consistent & Reliable Insights",
-    description: "By catching data issues early and applying transformation rules consistently, your reports and models become far more reliable."
+    description:
+      "By catching data issues early and applying transformation rules consistently, your reports and models become far more reliable.",
   },
   {
     heading: "Empowers Faster Decisions",
-    description: "Real-time, auto-updated dashboards means decision-makers always have the latest insights, no need to wait for reports."
+    description:
+      "Real-time, auto-updated dashboards means decision-makers always have the latest insights, no need to wait for reports.",
   },
   {
     heading: "Scales with Your Business",
-    description: "Whether you're a startup or an enterprise, the modular, integration-ready system grows with your data complexity and needs."
-  }
+    description:
+      "Whether you're a startup or an enterprise, the modular, integration-ready system grows with your data complexity and needs.",
+  },
 ];
 
 export default function DataIntelligencePage() {
   const [productsOpen, setProductsOpen] = useState(false);
-  
+
   // Find the Data Intelligence agent data
-  const dataIntelligenceAgent = agents.find(agent => agent.name === "Data Intelligence");
+  const dataIntelligenceAgent = agents.find(
+    (agent) => agent.name === "Data Intelligence",
+  );
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -69,8 +75,8 @@ export default function DataIntelligencePage() {
 
           {/* Features Grid - Responsive Layout */}
           {dataIntelligenceAgent && (
-            <AgentCardsGrid 
-              features={dataIntelligenceAgent.features} 
+            <AgentCardsGrid
+              features={dataIntelligenceAgent.features}
               className="mb-16"
             />
           )}

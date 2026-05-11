@@ -38,11 +38,6 @@ export default function MainNavigation() {
       icon: <MessageSquare className="h-4 w-4 text-[#6D2FD5]" />,
     },
     {
-      name: "AI Talent Assistant",
-      path: "/recruiting-agent",
-      icon: <Users className="h-4 w-4 text-[#6D2FD5]" />,
-    },
-    {
       name: "Document Intelligence",
       path: "/data-structuring-engine",
       icon: <FileText className="h-4 w-4 text-[#6D2FD5]" />,
@@ -98,12 +93,6 @@ export default function MainNavigation() {
             About
           </Link>
           <Link
-            href="/ready-to-use"
-            className="text-sm font-medium transition-colors hover:text-[#6D2FD5]"
-          >
-            Ready to Use
-          </Link>
-          <Link
             href="/careers"
             className="text-sm font-medium transition-colors hover:text-[#6D2FD5]"
           >
@@ -116,17 +105,6 @@ export default function MainNavigation() {
             Contact
           </Link>
         </nav>
-
-        {/* Book a Demo Button - Desktop */}
-        <div className="hidden lg:flex">
-          <Button
-            size="sm"
-            className="bg-[#6320ce] hover:bg-[#6320ce]/90 rounded-full px-6"
-            onClick={() => setDemoDialogOpen(true)}
-          >
-            Book a Demo
-          </Button>
-        </div>
 
         {/* Mobile menu button */}
         <button
@@ -148,7 +126,6 @@ export default function MainNavigation() {
         productsOpen={productsOpen}
         setProductsOpen={setProductsOpen}
         solutions={solutions}
-        onBookDemo={() => setDemoDialogOpen(true)}
       />
 
       <BookDemoDialog

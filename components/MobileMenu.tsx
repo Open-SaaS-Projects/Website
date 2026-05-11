@@ -55,7 +55,6 @@ export default function MobileMenu({
         {[
           { name: "Services", href: "/#services" },
           { name: "About", href: "/#company" },
-          { name: "Ready to Use", href: "/ready-to-use" },
           { name: "Careers", href: "/careers" },
           { name: "Contact", href: "/contact" },
         ].map((link) => (
@@ -68,19 +67,6 @@ export default function MobileMenu({
             {link.name}
           </Link>
         ))}
-
-        {/* Book a Demo Button - Mobile */}
-        <div className="pt-4 border-t border-gray-200">
-          <Button
-            className="w-full bg-[#6320ce] hover:bg-[#6320ce]/90 rounded-full"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onBookDemo();
-            }}
-          >
-            Book a Demo
-          </Button>
-        </div>
       </div>
     </div>
   );

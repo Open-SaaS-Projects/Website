@@ -67,7 +67,7 @@ export default function CareersPage() {
 
       if (!firstName || !lastName || !email) {
         setFormError(
-          "Please fill in all required fields (First Name, Last Name, Email)"
+          "Please fill in all required fields (First Name, Last Name, Email)",
         );
         setIsLoading(false);
         return;
@@ -94,7 +94,7 @@ export default function CareersPage() {
       if (result.success) {
         setFormSubmitted(true);
         setSuccessMessage(
-          result.message || "Your application has been submitted successfully!"
+          result.message || "Your application has been submitted successfully!",
         );
         setSelectedFile(null);
 
@@ -109,10 +109,11 @@ export default function CareersPage() {
         console.error(
           "Career application failed:",
           result.error,
-          result.details
+          result.details,
         );
         setFormError(
-          result.error || "An error occurred while submitting your application."
+          result.error ||
+            "An error occurred while submitting your application.",
         );
 
         // Show additional details in development
@@ -123,7 +124,7 @@ export default function CareersPage() {
     } catch (error) {
       console.error("Form submission error:", error);
       setFormError(
-        "An unexpected error occurred. Please try again or email us directly at info@makkn.com."
+        "An unexpected error occurred. Please try again or email us directly at info@makkn.com.",
       );
     } finally {
       setIsLoading(false);
@@ -145,7 +146,8 @@ export default function CareersPage() {
                     Join Our Team
                   </h1>
                   <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    Help us build the future of AI Solutions for businesses
+                    Join a high-impact team shaping the future of AI and digital
+                    transformation.
                   </p>
                 </div>
               </div>
