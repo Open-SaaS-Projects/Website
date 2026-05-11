@@ -75,12 +75,6 @@ export default function MainFooter() {
                 Customer Support Automation
               </Link>
               <Link
-                href="/recruiting-agent"
-                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
-              >
-                AI Talent Assistant
-              </Link>
-              <Link
                 href="/data-structuring-engine"
                 className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
               >

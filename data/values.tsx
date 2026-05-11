@@ -23,8 +23,8 @@ export const valuesData = [
     ),
   },
   {
-    id: "continious-evolution",
-    title: "Continious Evolution",
+    id: "continuous-evolution",
+    title: "Continuous Evolution",
     description: "Continuously growing and adapting",
     icon: (
       <svg
