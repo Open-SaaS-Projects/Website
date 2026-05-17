@@ -273,8 +273,8 @@ export const STATUS_LABELS: Record<ApplicationStatus, string> = {
 };
 
 export const STATUS_STYLES: Record<ApplicationStatus, string> = {
-  new: "bg-blue-50 text-blue-600",
-  reviewing: "bg-yellow-50 text-yellow-600",
-  shortlisted: "bg-green-50 text-green-700",
-  rejected: "bg-red-50 text-red-500",
+  new: "bg-gray-50 text-gray-600 border border-gray-200",
+  reviewing: "bg-yellow-50 text-yellow-700 border border-yellow-200",
+  shortlisted: "bg-green-50 text-green-700 border border-green-200",
+  rejected: "bg-red-50 text-red-700 border border-red-200",
 };

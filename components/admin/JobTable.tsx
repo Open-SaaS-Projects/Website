@@ -67,10 +67,10 @@ export default function JobTable({
             {/* Status badge */}
             <div className="self-center">
               <span
-                className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${
+                className={`inline-block rounded-full px-3 py-1 text-xs font-medium ring-1 ring-inset ${
                   job.status === "active"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-gray-100 text-gray-500"
+                    ? "bg-emerald-50 text-emerald-600 ring-emerald-500/20"
+                    : "bg-gray-50 text-gray-500 ring-gray-500/20"
                 }`}
               >
                 {job.status === "active" ? "Active" : "Inactive"}
@@ -83,7 +83,7 @@ export default function JobTable({
               <button
                 onClick={() => onEdit(job)}
                 title="Edit"
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-50 text-[#6320ce] transition-colors hover:bg-purple-100"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-purple-50 hover:text-[#6320ce]"
               >
                 <Pencil className="h-3.5 w-3.5" />
               </button>
@@ -94,8 +94,8 @@ export default function JobTable({
                 title={job.status === "active" ? "Set inactive" : "Set active"}
                 className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${
                   job.status === "active"
-                    ? "bg-green-50 text-green-600 hover:bg-green-100"
-                    : "bg-gray-100 text-gray-400 hover:bg-gray-200"
+                    ? "text-gray-400 hover:bg-emerald-50 hover:text-emerald-600"
+                    : "text-gray-400 hover:bg-gray-100 hover:text-gray-600"
                 }`}
               >
                 {job.status === "active" ? (
@@ -109,7 +109,7 @@ export default function JobTable({
               <button
                 onClick={() => onDelete(job.id)}
                 title="Delete"
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-50 text-red-500 transition-colors hover:bg-red-100"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-rose-50 hover:text-rose-600"
               >
                 <Trash2 className="h-3.5 w-3.5" />
               </button>
@@ -138,10 +138,10 @@ export default function JobTable({
                 </p>
               </div>
               <span
-                className={`flex-shrink-0 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                className={`flex-shrink-0 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${
                   job.status === "active"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-gray-100 text-gray-500"
+                    ? "bg-emerald-50 text-emerald-600 ring-emerald-500/20"
+                    : "bg-gray-50 text-gray-500 ring-gray-500/20"
                 }`}
               >
                 {job.status === "active" ? "Active" : "Inactive"}
@@ -159,7 +159,7 @@ export default function JobTable({
               <button
                 onClick={() => onEdit(job)}
                 title="Edit"
-                className="flex h-9 flex-1 items-center justify-center gap-2 rounded-lg bg-purple-50 text-[#6320ce] transition-colors hover:bg-purple-100"
+                className="flex h-9 flex-1 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white text-gray-600 transition-colors hover:bg-purple-50 hover:text-[#6320ce] hover:border-purple-100"
               >
                 <Pencil className="h-3.5 w-3.5" />
                 <span className="text-xs font-medium">Edit</span>
@@ -169,10 +169,10 @@ export default function JobTable({
               <button
                 onClick={() => onToggleStatus(job.id)}
                 title={job.status === "active" ? "Set inactive" : "Set active"}
-                className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors ${
+                className={`flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white transition-colors ${
                   job.status === "active"
-                    ? "bg-green-50 text-green-600 hover:bg-green-100"
-                    : "bg-gray-100 text-gray-400 hover:bg-gray-200"
+                    ? "text-gray-400 hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-100"
+                    : "text-gray-400 hover:bg-gray-50 hover:text-gray-600"
                 }`}
               >
                 {job.status === "active" ? (
@@ -186,7 +186,7 @@ export default function JobTable({
               <button
                 onClick={() => onDelete(job.id)}
                 title="Delete"
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-red-50 text-red-500 transition-colors hover:bg-red-100"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-400 transition-colors hover:bg-rose-50 hover:text-rose-600 hover:border-rose-100"
               >
                 <Trash2 className="h-3.5 w-3.5" />
               </button>

@@ -13,7 +13,7 @@ export default function StatsBar({ jobs }: StatsBarProps) {
 
   const stats = [
     { label: "Total Positions", value: total, color: "text-[#6320ce]" },
-    { label: "Active", value: active, color: "text-green-600" },
+    { label: "Active", value: active, color: "text-emerald-600" },
     { label: "Inactive", value: inactive, color: "text-gray-400" },
   ];
 
