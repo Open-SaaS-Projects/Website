@@ -1,0 +1,96 @@
+<h2>Mobile Optimization Approaches</h2>
+<p class="subtitle">All include burger menu sidebar. Choose how to handle tables and layouts.</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Card-Based Mobile Layout (Recommended)</h3>
+      <p><strong>Sidebar:</strong> Hidden by default, toggle with burger menu</p>
+      <p><strong>Stats:</strong> Stack vertically (1 column) on mobile</p>
+      <p><strong>Tables:</strong> Convert to card list on mobile - each job/application becomes a card with all info stacked vertically</p>
+      <div class="pros-cons" style="margin-top: 12px;">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Most readable on mobile - no cramped columns</li>
+            <li>Touch-friendly - larger tap targets</li>
+            <li>Progressive enhancement pattern</li>
+            <li>Common admin dashboard pattern</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Requires more components/logic</li>
+            <li>Different UX between desktop/mobile</li>
+            <li>More vertical scrolling</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Horizontal Scroll Tables</h3>
+      <p><strong>Sidebar:</strong> Hidden by default, toggle with burger menu</p>
+      <p><strong>Stats:</strong> Horizontal scroll or 2-column grid on mobile</p>
+      <p><strong>Tables:</strong> Keep table structure but allow horizontal scrolling with visible scroll hint</p>
+      <div class="pros-cons" style="margin-top: 12px;">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Minimal code changes - just wrap in scroll container</li>
+            <li>Consistent UX across all devices</li>
+            <li>Quick implementation</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Horizontal scrolling is poor UX on mobile</li>
+            <li>Easy to miss columns off-screen</li>
+            <li>Actions may not be immediately visible</li>
+            <li>Feels like "desktop crammed into mobile"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Hybrid: Simplified Table + Drawer</h3>
+      <p><strong>Sidebar:</strong> Hidden by default, toggle with burger menu</p>
+      <p><strong>Stats:</strong> 2-column grid on mobile (reduces to 1 column on very small screens)</p>
+      <p><strong>Tables:</strong> Show only key columns (title + status), tap row to open drawer with full details and actions</p>
+      <div class="pros-cons" style="margin-top: 12px;">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Compact overview - see more rows at once</li>
+            <li>Progressive disclosure - details on demand</li>
+            <li>Good balance of table structure and mobile UX</li>
+            <li>ApplicationsPanel already uses this pattern</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Requires drawer component for JobTable</li>
+            <li>Actions require extra tap</li>
+            <li>Moderate implementation complexity</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 32px; background: #ede9fe; padding: 16px; border-radius: 12px; border-left: 4px solid #6320ce;">
+  <h3 style="margin-top: 0; color: #6320ce;">My Recommendation: Option A (Card-Based)</h3>
+  <p style="color: #5b21b6; margin: 0;">Card-based layouts provide the best mobile experience for admin dashboards. They're touch-friendly, readable without zooming, and feel native to mobile. The extra implementation effort is worth it for usability. We can use Tailwind's responsive utilities (hidden/block classes) to show cards on mobile and tables on desktop.</p>
+</div>
