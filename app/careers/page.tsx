@@ -36,7 +36,7 @@ export default function CareersPage() {
         {/* Open Positions Section */}
         <section className="mx-auto max-w-3xl px-6 py-16">
           <AnimateOnScroll>
-            <h2 className="mb-6 text-2xl font-bold text-[#6320ce]">
+            <h2 className="mb-6 text-2xl font-bold text-[#6320ce] text-center md:text-left">
               Open Positions
             </h2>
           </AnimateOnScroll>
