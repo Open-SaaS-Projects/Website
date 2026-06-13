@@ -1,22 +1,18 @@
-"use client";
-
 import type React from "react";
 import AnimateOnScroll from "@/components/animate-on-scroll";
-
-// Import the MainNavigation and MainFooter components
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
 import Chatbot from "@/components/Chatbot";
-import { activeJobs } from "@/data/jobs";
 import JobCard from "@/components/careers/jobCard";
 import EmptyPositions from "@/components/careers/emptyPositions";
+import { getActiveJobs } from "@/app/actions/jobs";
 
-export default function CareersPage() {
-  const hasJobs = activeJobs.length > 0;
+export default async function CareersPage() {
+  const jobs = await getActiveJobs();
+  const hasJobs = jobs.length > 0;
 
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Header */}
       <MainNavigation />
 
       <main className="flex-1">
@@ -42,7 +38,7 @@ export default function CareersPage() {
           </AnimateOnScroll>
           {hasJobs ? (
             <div className="flex flex-col gap-3">
-              {activeJobs.map((job, i) => (
+              {jobs.map((job, i) => (
                 <JobCard key={job.id} job={job} index={i} />
               ))}
             </div>
@@ -52,7 +48,6 @@ export default function CareersPage() {
         </section>
       </main>
 
-      {/* Footer */}
       <MainFooter />
       <Chatbot />
     </div>

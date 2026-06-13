@@ -1,23 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { X } from "lucide-react";
-import type { Job, JobType } from "@/data/jobs";
+import type { Job } from "@/app/actions/jobs";
+import { createJob, updateJob } from "@/app/actions/jobs";
+
+type JobType = "Full-time" | "Part-time" | "Contract";
 
 interface AddJobModalProps {
-  job?: Job | null; // if provided, we're in edit mode
+  job?: Job | null;
   onClose: () => void;
-  onSave: (data: Omit<Job, "id" | "postedAt">) => void;
 }
 
 const JOB_TYPES: JobType[] = ["Full-time", "Part-time", "Contract"];
 
-export default function AddJobModal({
-  job,
-  onClose,
-  onSave,
-}: AddJobModalProps) {
+export default function AddJobModal({ job, onClose }: AddJobModalProps) {
   const isEdit = Boolean(job);
+  const [isPending, startTransition] = useTransition();
 
   const [form, setForm] = useState({
     title: job?.title ?? "",
@@ -27,6 +26,8 @@ export default function AddJobModal({
     description: job?.description ?? "",
     status: job?.status ?? ("active" as Job["status"]),
   });
+
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -38,11 +39,25 @@ export default function AddJobModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(form);
+    setError(null);
+
+    startTransition(() => {
+      (async () => {
+        const result = isEdit && job
+          ? await updateJob(job.id, form)
+          : await createJob(form);
+
+        if (!result.success) {
+          setError(result.error ?? "Something went wrong. Please try again.");
+          return;
+        }
+
+        onClose();
+      })();
+    });
   };
 
   return (
-    /* Backdrop */
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && onClose()}
@@ -170,20 +185,31 @@ export default function AddJobModal({
             </button>
           </div>
 
+          {/* Error message */}
+          {error && (
+            <p className="rounded-lg bg-rose-50 px-4 py-2.5 text-xs text-rose-600">
+              {error}
+            </p>
+          )}
+
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full border border-gray-200 px-6 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50"
+              disabled={isPending}
+              className="rounded-full border border-gray-200 px-6 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 disabled:opacity-50"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-full bg-[#6320ce] px-8 py-2 text-sm font-medium text-white hover:opacity-90"
+              disabled={isPending}
+              className="rounded-full bg-[#6320ce] px-8 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
             >
-              {isEdit ? "Save changes" : "Save position"}
+              {isPending
+                ? isEdit ? "Saving..." : "Adding..."
+                : isEdit ? "Save changes" : "Save position"}
             </button>
           </div>
         </form>

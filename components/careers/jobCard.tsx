@@ -9,7 +9,8 @@ import {
   Briefcase,
   Building2,
 } from "lucide-react";
-import type { Job } from "@/data/jobs";
+import type { Job } from "@/app/actions/jobs";
+import { submitApplication } from "@/app/actions/careers";
 
 interface JobCardProps {
   job: Job;
@@ -21,7 +22,9 @@ export default function JobCard({ job, index }: JobCardProps) {
   const [fileName, setFileName] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -30,10 +33,23 @@ export default function JobCard({ job, index }: JobCardProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     setIsSubmitting(true);
-    // Placeholder — wire to server action once backend is confirmed
-    await new Promise((r) => setTimeout(r, 1200));
+
+    const formData = new FormData(formRef.current!);
+    // Inject job_id and job_title — not in the visible form fields
+    formData.set("job_id", job.id);
+    formData.set("job_title", job.title);
+
+    const result = await submitApplication(formData);
+
     setIsSubmitting(false);
+
+    if (!result.success) {
+      setError(result.error ?? "Something went wrong. Please try again.");
+      return;
+    }
+
     setSubmitted(true);
   };
 
@@ -128,7 +144,11 @@ export default function JobCard({ job, index }: JobCardProps) {
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-4"
+                >
                   {/* Name row */}
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="flex flex-col gap-1.5">
@@ -137,6 +157,7 @@ export default function JobCard({ job, index }: JobCardProps) {
                       </label>
                       <input
                         type="text"
+                        name="first_name"
                         required
                         placeholder="First name"
                         className="rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-[#6320ce] focus:ring-2 focus:ring-purple-100"
@@ -148,6 +169,7 @@ export default function JobCard({ job, index }: JobCardProps) {
                       </label>
                       <input
                         type="text"
+                        name="last_name"
                         required
                         placeholder="Last name"
                         className="rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-[#6320ce] focus:ring-2 focus:ring-purple-100"
@@ -162,6 +184,7 @@ export default function JobCard({ job, index }: JobCardProps) {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       required
                       placeholder="your.email@example.com"
                       className="rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-[#6320ce] focus:ring-2 focus:ring-purple-100"
@@ -175,6 +198,7 @@ export default function JobCard({ job, index }: JobCardProps) {
                       <span className="text-gray-400">(optional)</span>
                     </label>
                     <textarea
+                      name="cover_letter"
                       rows={4}
                       placeholder="Tell us why you're a great fit..."
                       className="resize-none rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-[#6320ce] focus:ring-2 focus:ring-purple-100"
@@ -189,6 +213,7 @@ export default function JobCard({ job, index }: JobCardProps) {
                     <input
                       ref={fileInputRef}
                       type="file"
+                      name="resume"
                       accept=".pdf,.doc,.docx"
                       required
                       className="hidden"
@@ -219,6 +244,13 @@ export default function JobCard({ job, index }: JobCardProps) {
                       )}
                     </button>
                   </div>
+
+                  {/* Error message */}
+                  {error && (
+                    <p className="rounded-lg bg-rose-50 px-4 py-2.5 text-xs text-rose-600">
+                      {error}
+                    </p>
+                  )}
 
                   {/* Submit */}
                   <div className="flex mx-auto pt-1">

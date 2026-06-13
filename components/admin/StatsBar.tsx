@@ -1,6 +1,6 @@
 "use client";
 
-import type { Job } from "@/data/jobs";
+import type { Job } from "@/app/actions/jobs";
 
 interface StatsBarProps {
   jobs: Job[];
@@ -27,7 +27,9 @@ export default function StatsBar({ jobs }: StatsBarProps) {
           <p className="mb-1 text-center text-[10px] leading-tight sm:text-left sm:text-xs font-medium uppercase tracking-wide text-gray-400">
             {stat.label}
           </p>
-          <p className={`text-2xl sm:text-3xl font-semibold ${stat.color}`}>{stat.value}</p>
+          <p className={`text-2xl sm:text-3xl font-semibold ${stat.color}`}>
+            {stat.value}
+          </p>
         </div>
       ))}
     </div>

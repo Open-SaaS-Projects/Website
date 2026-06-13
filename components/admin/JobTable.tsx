@@ -1,21 +1,30 @@
 "use client";
 
+import { useTransition } from "react";
 import { Pencil, Trash2, Eye, EyeOff } from "lucide-react";
-import type { Job } from "@/data/jobs";
+import type { Job } from "@/app/actions/jobs";
+import { deleteJob, toggleJobStatus } from "@/app/actions/jobs";
 
 interface JobTableProps {
   jobs: Job[];
   onEdit: (job: Job) => void;
-  onDelete: (id: string) => void;
-  onToggleStatus: (id: string) => void;
 }
 
-export default function JobTable({
-  jobs,
-  onEdit,
-  onDelete,
-  onToggleStatus,
-}: JobTableProps) {
+export default function JobTable({ jobs, onEdit }: JobTableProps) {
+  const [isPending, startTransition] = useTransition();
+
+  const handleDelete = (id: string) => {
+    startTransition(() => {
+      deleteJob(id);
+    });
+  };
+
+  const handleToggle = (id: string, currentStatus: string) => {
+    startTransition(() => {
+      toggleJobStatus(id, currentStatus);
+    });
+  };
+
   if (jobs.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 bg-white py-16 text-center">
@@ -31,7 +40,6 @@ export default function JobTable({
     <>
       {/* Desktop Table */}
       <div className="hidden lg:block overflow-hidden rounded-2xl border border-gray-100 bg-white">
-        {/* Table header */}
         <div className="grid grid-cols-[1fr_120px_100px_120px] gap-4 border-b border-gray-100 bg-gray-50 px-6 py-3">
           {["Position", "Type", "Status", "Actions"].map((h) => (
             <span
@@ -43,15 +51,15 @@ export default function JobTable({
           ))}
         </div>
 
-        {/* Rows */}
         {jobs.map((job, i) => (
           <div
             key={job.id}
             className={`grid grid-cols-[1fr_120px_100px_120px] gap-4 px-6 py-4 transition-colors hover:bg-gray-50 ${
               i !== jobs.length - 1 ? "border-b border-gray-100" : ""
-            } ${job.status === "inactive" ? "opacity-60" : ""}`}
+            } ${job.status === "inactive" ? "opacity-60" : ""} ${
+              isPending ? "pointer-events-none opacity-50" : ""
+            }`}
           >
-            {/* Position info */}
             <div className="flex flex-col gap-0.5">
               <span className="text-sm font-semibold text-gray-900">
                 {job.title}
@@ -61,10 +69,10 @@ export default function JobTable({
               </span>
             </div>
 
-            {/* Type */}
-            <span className="self-center text-xs text-gray-500">{job.type}</span>
+            <span className="self-center text-xs text-gray-500">
+              {job.type}
+            </span>
 
-            {/* Status badge */}
             <div className="self-center">
               <span
                 className={`inline-block rounded-full px-3 py-1 text-xs font-medium ring-1 ring-inset ${
@@ -77,9 +85,7 @@ export default function JobTable({
               </span>
             </div>
 
-            {/* Actions */}
             <div className="flex items-center gap-2">
-              {/* Edit */}
               <button
                 onClick={() => onEdit(job)}
                 title="Edit"
@@ -88,9 +94,8 @@ export default function JobTable({
                 <Pencil className="h-3.5 w-3.5" />
               </button>
 
-              {/* Toggle active/inactive */}
               <button
-                onClick={() => onToggleStatus(job.id)}
+                onClick={() => handleToggle(job.id, job.status)}
                 title={job.status === "active" ? "Set inactive" : "Set active"}
                 className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${
                   job.status === "active"
@@ -105,9 +110,8 @@ export default function JobTable({
                 )}
               </button>
 
-              {/* Delete */}
               <button
-                onClick={() => onDelete(job.id)}
+                onClick={() => handleDelete(job.id)}
                 title="Delete"
                 className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-rose-50 hover:text-rose-600"
               >
@@ -125,9 +129,8 @@ export default function JobTable({
             key={job.id}
             className={`rounded-xl border border-gray-100 bg-white p-4 transition-all ${
               job.status === "inactive" ? "opacity-60" : ""
-            }`}
+            } ${isPending ? "pointer-events-none opacity-50" : ""}`}
           >
-            {/* Card Header - Title & Status */}
             <div className="flex items-start justify-between gap-3 mb-3">
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-semibold text-gray-900 truncate">
@@ -148,27 +151,21 @@ export default function JobTable({
               </span>
             </div>
 
-            {/* Card Body - Type */}
             <div className="mb-3 pb-3 border-b border-gray-100">
               <span className="text-xs text-gray-500">{job.type}</span>
             </div>
 
-            {/* Card Footer - Actions */}
             <div className="flex items-center gap-2">
-              {/* Edit */}
               <button
                 onClick={() => onEdit(job)}
-                title="Edit"
                 className="flex h-9 flex-1 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white text-gray-600 transition-colors hover:bg-purple-50 hover:text-[#6320ce] hover:border-purple-100"
               >
                 <Pencil className="h-3.5 w-3.5" />
                 <span className="text-xs font-medium">Edit</span>
               </button>
 
-              {/* Toggle active/inactive */}
               <button
-                onClick={() => onToggleStatus(job.id)}
-                title={job.status === "active" ? "Set inactive" : "Set active"}
+                onClick={() => handleToggle(job.id, job.status)}
                 className={`flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white transition-colors ${
                   job.status === "active"
                     ? "text-gray-400 hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-100"
@@ -182,10 +179,8 @@ export default function JobTable({
                 )}
               </button>
 
-              {/* Delete */}
               <button
-                onClick={() => onDelete(job.id)}
-                title="Delete"
+                onClick={() => handleDelete(job.id)}
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-400 transition-colors hover:bg-rose-50 hover:text-rose-600 hover:border-rose-100"
               >
                 <Trash2 className="h-3.5 w-3.5" />

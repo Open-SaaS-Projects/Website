@@ -1,18 +1,24 @@
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 
 interface EmailData {
-  to: string
-  subject: string
-  html: string
-  text?: string
+  to: string;
+  subject: string;
+  html: string;
+  text?: string;
   attachments?: Array<{
-    filename: string
-    content: Buffer
-    contentType: string
-  }>
+    filename: string;
+    content: Buffer;
+    contentType: string;
+  }>;
 }
 
-export async function sendEmail({ to, subject, html, text, attachments }: EmailData) {
+export async function sendEmail({
+  to,
+  subject,
+  html,
+  text,
+  attachments,
+}: EmailData) {
   try {
     // Log environment variables for debugging (without sensitive data)
     console.log("Email configuration check:", {
@@ -21,11 +27,18 @@ export async function sendEmail({ to, subject, html, text, attachments }: EmailD
       user: process.env.SMTP_USER ? "✓" : "✗",
       pass: process.env.SMTP_PASS ? "✓" : "✗",
       from: process.env.SMTP_FROM ? "✓" : "✗",
-    })
+    });
 
     // Validate required environment variables
-    if (!process.env.SMTP_HOST || !process.env.SMTP_PORT || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      throw new Error("Missing required SMTP configuration. Please check environment variables.")
+    if (
+      !process.env.SMTP_HOST ||
+      !process.env.SMTP_PORT ||
+      !process.env.SMTP_USER ||
+      !process.env.SMTP_PASS
+    ) {
+      throw new Error(
+        "Missing required SMTP configuration. Please check environment variables.",
+      );
     }
 
     // Create transporter using environment variables
@@ -45,12 +58,12 @@ export async function sendEmail({ to, subject, html, text, attachments }: EmailD
       connectionTimeout: 60000, // 60 seconds
       greetingTimeout: 30000, // 30 seconds
       socketTimeout: 60000, // 60 seconds
-    })
+    });
 
     // Verify connection configuration
-    console.log("Verifying SMTP connection...")
-    await transporter.verify()
-    console.log("SMTP connection verified successfully")
+    console.log("Verifying SMTP connection...");
+    await transporter.verify();
+    console.log("SMTP connection verified successfully");
 
     // Send mail
     const mailOptions = {
@@ -60,36 +73,40 @@ export async function sendEmail({ to, subject, html, text, attachments }: EmailD
       html,
       text: text || html.replace(/<[^>]*>/g, ""), // Strip HTML for text version
       attachments: attachments || [],
-    }
+    };
 
-    console.log("Sending email to:", to)
-    console.log("Email subject:", subject)
-    console.log("Attachments count:", attachments?.length || 0)
+    console.log("Sending email to:", to);
+    console.log("Email subject:", subject);
+    console.log("Attachments count:", attachments?.length || 0);
 
     if (attachments && attachments.length > 0) {
-      console.log(`Email includes ${attachments.length} attachment(s). First attachment: ${attachments[0].filename}`)
+      console.log(
+        `Email includes ${attachments.length} attachment(s). First attachment: ${attachments[0].filename}`,
+      );
     } else {
-      console.log("Email has no attachments.")
+      console.log("Email has no attachments.");
     }
 
-    const info = await transporter.sendMail(mailOptions)
+    const info = await transporter.sendMail(mailOptions);
 
-    console.log("Email sent successfully:", info.messageId)
-    return { success: true, messageId: info.messageId }
+    console.log("Email sent successfully:", info.messageId);
+    return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error("Email sending failed:", error)
+    console.error("Email sending failed:", error);
 
     // Provide more specific error messages
-    let errorMessage = "Unknown error"
+    let errorMessage = "Unknown error";
     if (error instanceof Error) {
       if (error.message.includes("ECONNREFUSED")) {
-        errorMessage = "Cannot connect to email server. Please check SMTP configuration."
+        errorMessage =
+          "Cannot connect to email server. Please check SMTP configuration.";
       } else if (error.message.includes("Invalid login")) {
-        errorMessage = "Email authentication failed. Please check SMTP credentials."
+        errorMessage =
+          "Email authentication failed. Please check SMTP credentials.";
       } else if (error.message.includes("timeout")) {
-        errorMessage = "Email sending timed out. Please try again."
+        errorMessage = "Email sending timed out. Please try again.";
       } else {
-        errorMessage = error.message
+        errorMessage = error.message;
       }
     }
 
@@ -97,18 +114,18 @@ export async function sendEmail({ to, subject, html, text, attachments }: EmailD
       success: false,
       error: errorMessage,
       details: error instanceof Error ? error.stack : undefined,
-    }
+    };
   }
 }
 
 export function generateContactEmailHTML(data: {
-  firstName: string
-  lastName: string
-  email: string
-  company: string
-  jobTitle: string
-  phone?: string
-  message: string
+  firstName: string;
+  lastName: string;
+  email: string;
+  company: string;
+  jobTitle: string;
+  phone?: string;
+  message: string;
 }) {
   return `
     <!DOCTYPE html>
@@ -167,17 +184,17 @@ export function generateContactEmailHTML(data: {
       </div>
     </body>
     </html>
-  `
+  `;
 }
 
 export function generateCareerEmailHTML(data: {
-  firstName: string
-  lastName: string
-  email: string
-  phone?: string
-  linkedin?: string
-  message?: string
-  resumeFileName?: string
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  linkedin?: string;
+  message?: string;
+  resumeFileName?: string;
 }) {
   return `
     <!DOCTYPE html>
@@ -259,5 +276,131 @@ export function generateCareerEmailHTML(data: {
       </div>
     </body>
     </html>
-  `
+  `;
+}
+
+// --- New functions for careers backend integration ---
+
+type ApplicationEmailData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  jobTitle: string;
+  coverLetter?: string;
+  resumeUrl?: string;
+  resumeFileName?: string;
+  submittedAt: string;
+};
+
+type ApplicantConfirmationData = {
+  firstName: string;
+  jobTitle: string;
+};
+
+export function generateAdminApplicationEmailHTML(
+  data: ApplicationEmailData,
+): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>New Job Application</title>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #6320ce; color: white; padding: 20px; text-align: center; }
+        .content { background: #f9f9f9; padding: 20px; }
+        .field { margin-bottom: 15px; }
+        .label { font-weight: bold; color: #6320ce; }
+        .value { margin-top: 5px; }
+        .message-box { background: white; padding: 15px; border-left: 4px solid #6320ce; margin-top: 10px; }
+        .resume-btn { display: inline-block; background: #6320ce; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 8px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>New Job Application</h1>
+        </div>
+        <div class="content">
+          <div class="field">
+            <div class="label">Position:</div>
+            <div class="value">${data.jobTitle}</div>
+          </div>
+          <div class="field">
+            <div class="label">Name:</div>
+            <div class="value">${data.firstName} ${data.lastName}</div>
+          </div>
+          <div class="field">
+            <div class="label">Email:</div>
+            <div class="value"><a href="mailto:${data.email}" style="color: #6320ce;">${data.email}</a></div>
+          </div>
+          ${
+            data.coverLetter
+              ? `
+          <div class="field">
+            <div class="label">Cover Letter:</div>
+            <div class="message-box">${data.coverLetter.replace(/\n/g, "<br>")}</div>
+          </div>
+          `
+              : ""
+          }
+          ${
+            data.resumeUrl
+              ? `
+          <div class="field">
+            <div class="label">Resume:</div>
+            <a href="${data.resumeUrl}" class="resume-btn">Download ${data.resumeFileName ?? "Resume"}</a>
+          </div>
+          `
+              : ""
+          }
+          <div class="field">
+            <div class="label">Submitted:</div>
+            <div class="value">${new Date(data.submittedAt).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" })}</div>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export function generateApplicantConfirmationEmailHTML(
+  data: ApplicantConfirmationData,
+): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>We received your application</title>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #6320ce; color: white; padding: 20px; text-align: center; }
+        .content { background: #f9f9f9; padding: 20px; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #9ca3af; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Application Received</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${data.firstName},</p>
+          <p>Thank you for applying for the <strong>${data.jobTitle}</strong> position at MAKKN Technologies. We've received your application and our team will review it shortly.</p>
+          <p>If your profile is a good fit, we'll be in touch to discuss next steps.</p>
+          <p>In the meantime, feel free to explore what we're building at <a href="https://makkn.com" style="color: #6320ce;">makkn.com</a>.</p>
+          <div class="footer">
+            <p style="margin: 0;">MAKKN Technologies</p>
+            <a href="https://makkn.com" style="color: #6320ce;">makkn.com</a>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
 }
