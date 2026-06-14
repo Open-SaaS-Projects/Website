@@ -230,35 +230,6 @@ export default function IndustryPageTemplate({
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="w-full py-16 md:py-20 bg-[#6320ce] text-white">
-        <div className="container max-w-7xl mx-auto px-4 md:px-6">
-          <AnimateOnScroll>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Measurable Impact</h2>
-              <p className="text-white/90 max-w-2xl mx-auto">
-                Real results delivered by MAKKN AI solutions
-              </p>
-            </div>
-          </AnimateOnScroll>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {industry.benefits.map((benefit, index) => (
-              <AnimateOnScroll key={index} delay={index * 0.1}>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold mb-2">
-                    {benefit.stat}
-                  </div>
-                  <div className="text-white/90 text-sm md:text-base">
-                    {benefit.label}
-                  </div>
-                </div>
-              </AnimateOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="w-full py-16 md:py-20 lg:py-24 bg-gray-50">
         <div className="container max-w-4xl mx-auto px-4 md:px-6">

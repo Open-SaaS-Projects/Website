@@ -44,12 +44,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Industries pages
     {
-      url: `${baseUrl}/industries`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
       url: `${baseUrl}/industries/ai-for-real-estate`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

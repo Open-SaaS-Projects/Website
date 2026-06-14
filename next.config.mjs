@@ -10,6 +10,13 @@ const nextConfig = {
     unoptimized: false,
   },
   output: "standalone",
+  webpack: (config, { isServer }) => {
+    // Suppress webpack cache serialization warnings
+    config.infrastructureLogging = {
+      level: "error",
+    };
+    return config;
+  },
 };
 
 export default nextConfig;

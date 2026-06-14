@@ -34,7 +34,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
-  if (user.email?.toLowerCase() !== process.env.ADMIN_EMAIL?.toLowerCase()) {
+  const allowedEmails = process.env.ADMIN_EMAIL?.toLowerCase()
+    .split(",")
+    .map((e) => e.trim()) || [];
+
+  if (!allowedEmails.includes(user.email?.toLowerCase() || "")) {
     return NextResponse.redirect(
       new URL("/admin/login?error=unauthorized", request.url)
     );

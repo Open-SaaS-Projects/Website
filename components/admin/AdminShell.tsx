@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Briefcase, Users, LogOut, Menu, X, Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 import type { Job } from "@/app/actions/jobs";
 import type { Application } from "@/app/actions/applications";
@@ -24,11 +23,19 @@ export default function AdminShell({
   applications,
   newApplicationsCount,
 }: AdminShellProps) {
-  const router = useRouter();
   const [activeNav, setActiveNav] = useState<NavItem>("jobs");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getUserEmail = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUserEmail(session?.user?.email || null);
+    };
+    getUserEmail();
+  }, []);
 
   const navItems = [
     {
@@ -52,11 +59,6 @@ export default function AdminShell({
   const handleEdit = (job: Job) => {
     setEditingJob(job);
     setModalOpen(true);
-  };
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.push("/admin/login");
   };
 
   return (
@@ -122,15 +124,15 @@ export default function AdminShell({
         <div className="border-t border-white/10 px-5 py-4">
           <p className="text-xs text-white/40">Logged in as</p>
           <p className="mt-0.5 truncate text-xs font-medium text-white/70">
-            admin@makkn.com
+            {userEmail || "Loading..."}
           </p>
-          <button
-            onClick={handleSignOut}
+          <a
+            href="/auth/signout"
             className="mt-3 flex items-center gap-1.5 text-xs text-white/30 hover:text-white/60"
           >
             <LogOut className="h-3 w-3" />
             Sign out
-          </button>
+          </a>
         </div>
       </aside>
 

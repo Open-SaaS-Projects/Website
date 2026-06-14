@@ -68,11 +68,6 @@ export default function MainNavigation() {
   // Industry items with icons
   const industries = [
     {
-      name: "All Industries",
-      path: "/industries",
-      icon: <BarChart3 className="h-4 w-4 text-[#6D2FD5]" />,
-    },
-    {
       name: "AI for Real Estate",
       path: "/industries/ai-for-real-estate",
       icon: <Building2 className="h-4 w-4 text-[#6D2FD5]" />,
