@@ -15,6 +15,15 @@ export default function AuthCallbackPage() {
         console.log("Hash:", window.location.hash);
         console.log("Search:", window.location.search);
 
+        // Runtime origin mismatch check
+        const requestOrigin = window.location.origin;
+        const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+        if (configuredSiteUrl && requestOrigin !== configuredSiteUrl) {
+          console.warn(
+            `Origin mismatch: request came from ${requestOrigin} but NEXT_PUBLIC_SITE_URL is ${configuredSiteUrl}`
+          );
+        }
+
         // Check for errors in query params (expired/invalid links)
         const searchParams = new URLSearchParams(window.location.search);
         const authError = searchParams.get("error");

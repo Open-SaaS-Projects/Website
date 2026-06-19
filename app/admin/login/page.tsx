@@ -29,6 +29,16 @@ function AdminLoginContent() {
     e.preventDefault();
     setError(null);
 
+    // Defensive check for NEXT_PUBLIC_SITE_URL
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    if (!siteUrl) {
+      console.error(
+        "NEXT_PUBLIC_SITE_URL is not set. Magic link redirects will fail."
+      );
+      setError("Server configuration error. Please contact support.");
+      return;
+    }
+
     // Client-side whitelist check — avoid unnecessary Supabase calls
     const allowedEmails =
       process.env.NEXT_PUBLIC_ADMIN_EMAIL?.toLowerCase()
@@ -45,7 +55,7 @@ function AdminLoginContent() {
     const { error: otpError } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+        emailRedirectTo: `${siteUrl}/auth/callback`,
       },
     });
 
