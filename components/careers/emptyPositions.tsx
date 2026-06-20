@@ -19,7 +19,6 @@ export default function EmptyPositions() {
       </h3>
       <p className="max-w-sm text-sm leading-relaxed text-gray-500">
         We&apos;re not hiring right now, but feel free to check back soon!
-        We&apos;re always looking for talented individuals to join our team.
       </p>
     </motion.div>
   );
