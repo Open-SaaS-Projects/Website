@@ -137,7 +137,7 @@ export default function JobCard({ job, index }: JobCardProps) {
           >
             <div className="border-t border-gray-100 bg-[#faf9ff] px-6 py-6">
               {/* Job description */}
-              <p className="mb-6 text-sm leading-relaxed text-gray-600">
+              <p className="mb-6 text-sm leading-relaxed text-gray-600 whitespace-pre-line">
                 {job.description}
               </p>
 

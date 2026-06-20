@@ -19,7 +19,6 @@ export interface Industry {
   slug: string;
   title: string;
   subtitle: string;
-  heroDescription: string;
   icon: string; // Lucide icon name
   challenges: IndustryChallenge[];
   solutions: IndustrySolution[];
@@ -31,51 +30,49 @@ export const industries: Industry[] = [
     id: "real-estate",
     slug: "ai-for-real-estate",
     title: "AI for Real Estate",
-    subtitle: "Transform Property Management with Intelligent Automation",
-    heroDescription:
-      "Streamline operations, enhance customer experiences, and unlock data-driven insights across your real estate portfolio with AI-powered solutions designed for the modern property market.",
+    subtitle:
+      "We don't build a one-size-fits-all product. We study how your industry operates, then configure our AI layer around your workflows, your language, and your data.",
     icon: "Building2",
     challenges: [
       {
-        title: "Manual Document Processing",
+        title: "Telesales teams are calling the wrong leads",
         description:
-          "Property documents, contracts, and leases require hours of manual review, delaying transactions and increasing error rates.",
+          "Large databases with no scoring—agents spend equal time on cold prospects and hot buyers. No way to tell who's ready to buy until they've already gone to a competitor.",
       },
       {
-        title: "Inefficient Lead Management",
+        title: "Inbound leads arriving unqualified",
         description:
-          "Sales teams struggle to qualify and prioritize leads effectively, leading to missed opportunities and wasted resources.",
+          "Campaigns generate volume, not quality; sales managers have no way to prioritise before the call is made. High cost-per-qualified-lead.",
       },
       {
-        title: "Limited Property Insights",
+        title: "Sales call intelligence is zero",
         description:
-          "Fragmented data across systems makes it difficult to analyze market trends, occupancy rates, and property performance.",
+          "Hundreds of telesales calls happen daily, but no one is analysing what's working, what objections are common, or which agents need coaching. Improvement is guesswork.",
+      },
+      {
+        title: "Contracts and documents are handled manually",
+        description:
+          "Lease agreements, title deeds, inspection reports scattered across emails and folders—no audit trail, missed renewal dates, and compliance risk under regulatory requirements.",
       },
     ],
     solutions: [
       {
-        title: "Data Intelligence",
+        title: "Score leads before your team picks up the phone",
         description:
-          "Consolidate property data, occupancy metrics, and market trends into unified dashboards for real-time decision-making and performance tracking.",
-        icon: "BarChart3",
+          "Scores and ranks both inbound and database leads by purchase likelihood. Analyses telesales calls in Arabic to surface winning patterns, common objections, and coaching opportunities. Generates targeted campaigns for specific buyer profiles.",
+        icon: "TrendingUp",
       },
       {
-        title: "Document Intelligence",
+        title: "Extract, validate, and track every contract automatically",
         description:
-          "Automate contract review, lease extraction, and compliance verification to accelerate transactions and reduce legal risks.",
+          "Arabic and English lease documents processed via OCR and extraction—key dates, clauses, and obligations flagged automatically. Full audit trail. Nothing missed, nothing expired.",
         icon: "FileText",
       },
       {
-        title: "Customer Support Intelligence",
+        title: "Arabic-native tenant & buyer support",
         description:
-          "Deploy AI-powered chatbots to handle property inquiries, schedule viewings, and resolve tenant issues 24/7 across multiple channels.",
+          "Handles payment queries, maintenance requests, and property FAQs via voice or text in Arabic. Logs every interaction. Frees your team to focus on deals, not admin.",
         icon: "MessageSquare",
-      },
-      {
-        title: "Recommendation Engine",
-        description:
-          "Deliver personalized property suggestions to buyers and renters based on preferences, behavior, and budget, increasing conversion rates.",
-        icon: "TrendingUp",
       },
     ],
     benefits: [
@@ -101,69 +98,67 @@ export const industries: Industry[] = [
     id: "retail-ecommerce",
     slug: "ai-for-retail-ecommerce",
     title: "AI for Retail & E-Commerce",
-    subtitle: "Elevate Shopping Experiences with Personalized Intelligence",
-    heroDescription:
-      "Drive sales, optimize inventory, and deliver hyper-personalized customer journeys with AI solutions that understand shopper behavior and market dynamics in real time.",
+    subtitle:
+      "We don't build a one-size-fits-all product. We study how your industry operates, then configure our AI layer around your workflows, your language, and your data.",
     icon: "ShoppingCart",
     challenges: [
       {
-        title: "Generic Customer Experiences",
+        title: "Support teams drowning in repetitive tickets",
         description:
-          "One-size-fits-all product recommendations fail to engage shoppers, leading to low conversion rates and high cart abandonment.",
+          "Order status, return policy, delivery delays—the same questions are answered 40+ times a day, in Arabic and English, by agents who should be handling exceptions.",
       },
       {
-        title: "Overwhelmed Support Teams",
+        title: "No Arabic-native support coverage",
         description:
-          "Customer inquiries about products, orders, and returns flood support channels, delaying responses and frustrating customers.",
+          "Global chatbot tools are English-first; customers get broken Arabic or are frustrated with unnatural responses, hurting CSAT scores.",
       },
       {
-        title: "Ineffective Marketing Campaigns",
+        title: "Generic product recommendations are losing revenue",
         description:
-          "Marketing teams struggle to segment audiences and personalize outreach, resulting in poor ROI and wasted ad spend.",
+          '"Customers also bought" logic built on global behavioral doesn\'t reflect purchasing patterns, seasonal demand, or local price sensitivity.',
+      },
+      {
+        title: "Data sitting in silos, decisions made on instinct",
+        description:
+          "Sales data in one system, inventory in another, customer behavior in a third—ops managers can't get a single view without waiting for reports that are already stale.",
       },
     ],
     solutions: [
       {
-        title: "Recommendation Engine",
+        title: "Arabic & voice-native support agent",
         description:
-          "Analyze browsing patterns, purchase history, and preferences to deliver real-time product suggestions that boost sales and customer satisfaction.",
-        icon: "TrendingUp",
-      },
-      {
-        title: "Growth Intelligence",
-        description:
-          "Automate lead scoring, segment customers dynamically, and launch multi-channel campaigns that drive conversions and customer loyalty.",
-        icon: "Zap",
-      },
-      {
-        title: "Customer Support Intelligence",
-        description:
-          "Provide instant, AI-powered responses to product questions, order tracking, and return requests via chat, email, and social media.",
+          "Trained on your policies, your catalogue, and your tone—handles Arabic voice and text queries 24/7. Escalates only what needs a human. Avg. ticket deflection: 60–70%.",
         icon: "MessageSquare",
       },
       {
-        title: "Data Intelligence",
+        title: "Personalisation built on your customers' behaviour",
         description:
-          "Unify sales, inventory, and customer data into comprehensive dashboards for forecasting, trend analysis, and operational optimization.",
+          "Not a generic algorithm—trained on your transaction data. Surfaces the right product, to the right customer, at the right moment. Adapts to local demand patterns automatically.",
+        icon: "TrendingUp",
+      },
+      {
+        title: "One view of your entire operation",
+        description:
+          "Connects your sales, inventory, and customer data into a single queryable layer. Ask questions in plain language, get answers—not spreadsheets. Forecast demand before the stock runs out.",
         icon: "BarChart3",
       },
     ],
     benefits: [
       {
-        stat: "35%",
-        label: "Increase in Average Order Value",
+        stat: "60-70%",
+        label: "Avg. Ticket Deflection",
       },
       {
-        stat: "50%",
-        label: "Reduction in Cart Abandonment",
+        stat: "24/7",
+        label: "Arabic Voice & Text Support",
       },
       {
-        stat: "70%",
-        label: "Faster Customer Support Resolution",
+        stat: "1x",
+        label: "Unified Operational View",
       },
       {
-        stat: "3x",
-        label: "Improvement in Marketing ROI",
+        stat: "Auto",
+        label: "Demand Forecasting",
       },
     ],
   },
@@ -171,50 +166,48 @@ export const industries: Industry[] = [
     id: "healthcare",
     slug: "ai-for-healthcare",
     title: "AI for Healthcare",
-    subtitle: "Enhance Patient Care with Intelligent Automation",
-    heroDescription:
-      "Improve clinical outcomes, streamline administrative workflows, and unlock insights from medical data with AI solutions built for healthcare providers, hospitals, and clinics.",
+    subtitle:
+      "We don't build a one-size-fits-all product. We study how your industry operates, then configure our AI layer around your workflows, your language, and your data.",
     icon: "HeartPulse",
     challenges: [
       {
-        title: "Manual Medical Record Management",
+        title: "Patient inquiry overload on reception teams",
         description:
-          "Healthcare providers spend hours reviewing, categorizing, and extracting data from medical records, slowing down patient care and increasing administrative burden.",
+          "Appointment bookings, doctor availability, and insurance coverage questions are all handled manually by front desk staff via phone and WhatsApp. Reception teams spend more time answering calls than managing the clinic.",
       },
       {
-        title: "Inefficient Staff Recruitment",
+        title: "Insurance claims processed by hand",
         description:
-          "Hospitals and clinics struggle to hire qualified medical professionals quickly, facing lengthy recruitment cycles and talent shortages.",
+          "Hospital insurance submissions involve stacks of paper forms, manual data entry, and repeated follow-up with insurers. Errors cause rejections and payment delays that hit cash flow directly.",
       },
       {
-        title: "Fragmented Patient Data",
+        title: "Patient records and documents are unstructured",
         description:
-          "Medical records, lab results, and patient histories exist across disconnected systems, preventing holistic patient care and accurate diagnoses.",
+          "Medical histories, referral letters, lab results, and consent forms exist across paper files, scanned PDFs, and disconnected systems, making it impossible to retrieve them quickly when a patient arrives.",
+      },
+      {
+        title: "No visibility into operational performance",
+        description:
+          "Patient volume, appointment no-show rates, revenue per department, and staff utilisation are tracked in spreadsheets. Decisions made on gut feel rather than data across multi-branch clinic groups.",
       },
     ],
     solutions: [
       {
-        title: "Document Intelligence",
+        title: "Arabic voice & text agent for patient-facing ops",
         description:
-          "Automate extraction and classification of patient records, lab reports, and prescriptions to accelerate clinical workflows and reduce errors.",
+          "Handles appointment bookings, doctor availability queries, directions, and insurance FAQs in Arabic via phone, WhatsApp, or web. Reception staff focus on patients in front of them, not the queue on hold.",
+        icon: "MessageSquare",
+      },
+      {
+        title: "Extract and validate insurance claims and patient documents",
+        description:
+          "OCR and extraction across Arabic and English medical documents—insurance forms are auto-extracted and validated before submission, reducing rejection rates. Patient records made searchable and retrievable in seconds.",
         icon: "FileText",
       },
       {
-        title: "Data Structuring Engine",
+        title: "Operational dashboards across all branches",
         description:
-          "Transform unstructured medical data into structured formats for seamless integration with EHR systems and analytics platforms.",
-        icon: "Database",
-      },
-      {
-        title: "AI Talent Assistant",
-        description:
-          "Accelerate hiring of doctors, nurses, and support staff with automated resume screening, skills matching, and interview scheduling.",
-        icon: "Users",
-      },
-      {
-        title: "Data Intelligence",
-        description:
-          "Analyze patient outcomes, treatment effectiveness, and operational metrics to improve care quality and optimize hospital resources.",
+          "Connects appointment, billing, and patient flow data into one layer. Multi-branch clinic groups get a single view—no-show rates, revenue per department, and peak hours are queryable in plain Arabic or English.",
         icon: "BarChart3",
       },
     ],
@@ -241,50 +234,48 @@ export const industries: Industry[] = [
     id: "manufacturing",
     slug: "ai-for-manufacturing",
     title: "AI for Manufacturing",
-    subtitle: "Optimize Production with Data-Driven Intelligence",
-    heroDescription:
-      "Increase operational efficiency, reduce downtime, and accelerate growth with AI solutions that transform manufacturing data into actionable insights and automated workflows.",
+    subtitle:
+      "We don't build a one-size-fits-all product. We study how your industry operates, then configure our AI layer around your workflows, your language, and your data.",
     icon: "Factory",
     challenges: [
       {
-        title: "Unstructured Production Data",
+        title: "Workers can't find the right procedure fast enough",
         description:
-          "Manufacturing data from sensors, machines, and reports remains unorganized, making it impossible to identify inefficiencies and optimize processes.",
+          "SOPs, manuals, and safety docs exist but are scattered, versioned inconsistently, and mostly in formats no one can search. Errors happen because people rely on memory instead.",
       },
       {
-        title: "Limited Operational Visibility",
+        title: "Supplier and procurement data live in an email",
         description:
-          "Factory managers lack real-time dashboards to monitor production, quality control, and equipment performance, leading to reactive decision-making.",
+          "Quotes, purchase orders, and delivery confirmations are exchanged over email—no extraction, no comparison, no flagging when a delivery is late or a price has changed.",
       },
       {
-        title: "Inefficient Sales & Marketing",
+        title: "Quality reporting is always a step behind",
         description:
-          "Sales teams struggle to generate qualified leads and nurture relationships with distributors and partners, limiting business growth.",
+          "Defect logs and inspection reports are filled out manually—patterns only visible in hindsight, after production has moved on and rework costs have already hit.",
+      },
+      {
+        title: "No single view of production performance",
+        description:
+          "Output, downtime, defect rate, and supplier performance are tracked in separate tools or spreadsheets; ops managers spend hours compiling reports instead of acting on them.",
       },
     ],
     solutions: [
       {
-        title: "Data Intelligence",
+        title: "Every SOP and supplier doc is instantly searchable",
         description:
-          "Consolidate production metrics, quality data, and supply chain information into unified dashboards for real-time monitoring and predictive maintenance.",
+          "OCR and extraction across Arabic and English documents—workers query procedures in plain language, and always get the current version. Procurement docs extracted, compared, and anomalies flagged automatically.",
+        icon: "FileText",
+      },
+      {
+        title: "Production visibility without the spreadsheet marathon",
+        description:
+          "Connects your operational data sources into one layer. Surfaces defect patterns, downtime trends, and supplier performance in real time. Forecasts before problems become costs.",
         icon: "BarChart3",
       },
       {
-        title: "Data Structuring Engine",
+        title: "Internal knowledge agent for your floor teams",
         description:
-          "Transform raw sensor data, machine logs, and reports into structured formats for seamless analysis and system integration.",
-        icon: "Database",
-      },
-      {
-        title: "Growth Intelligence",
-        description:
-          "Automate lead generation, scoring, and multi-channel outreach to distributors and partners, accelerating sales cycles and market expansion.",
-        icon: "Zap",
-      },
-      {
-        title: "Customer Support Intelligence",
-        description:
-          "Deploy AI assistants to handle product inquiries, order tracking, and technical support requests instantly across all communication channels.",
+          "Workers ask questions in Arabic, get answers from your own SOPs, manuals, and compliance docs instantly. Captures tribal knowledge before it walks out the door with senior staff.",
         icon: "MessageSquare",
       },
     ],

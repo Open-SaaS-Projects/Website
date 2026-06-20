@@ -89,26 +89,18 @@ export default function IndustryPageTemplate({
                 {industry.title}
               </motion.h1>
               <motion.p
-                className="max-w-[600px] mx-auto text-gray-500 md:text-xl mb-4"
+                className="max-w-[700px] mx-auto text-gray-500 md:text-xl mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               >
                 {industry.subtitle}
               </motion.p>
-              <motion.p
-                className="max-w-[700px] mx-auto text-gray-500 mb-8"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              >
-                {industry.heroDescription}
-              </motion.p>
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 justify-center"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
