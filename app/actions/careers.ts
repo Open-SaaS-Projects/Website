@@ -24,8 +24,51 @@ export async function submitApplication(
 
   // Step 1 — Upload resume to Supabase Storage
   if (resumeFile && resumeFile.size > 0) {
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024;
+    if (resumeFile.size > maxSize) {
+      console.error(`File too large: ${resumeFile.name} (${resumeFile.size} bytes)`);
+      return {
+        success: false,
+        error: "File size must be less than 5MB",
+      };
+    }
+
+    // Validate file type
+    const allowedTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+    if (!allowedTypes.includes(resumeFile.type)) {
+      console.error(`Invalid file type: ${resumeFile.name} (${resumeFile.type})`);
+      return {
+        success: false,
+        error: "Please upload a PDF or DOCX file",
+      };
+    }
+
+    // Sanitize filename for storage (handles em dashes, special unicode, etc.)
+    // Preserves original filename for display in resume_file_name field
+    const sanitizedName = resumeFile.name
+      .normalize("NFD") // Normalize unicode (decompose accents, etc.)
+      .replace(/[̀-ͯ]/g, "") // Remove diacritics
+      .replace(/[^\w\s.-]/g, "") // Remove special chars entirely (em dash, ampersand, etc.)
+      .replace(/\s+/g, "_") // Replace spaces with underscore
+      .replace(/_{2,}/g, "_") // Collapse multiple underscores
+      .replace(/\.+/g, ".") // Collapse multiple dots
+      .replace(/^[._-]+|[._-]+$/g, "") // Remove leading/trailing special chars
+      .trim(); // Remove whitespace
+
+    console.log("File upload attempt:", {
+      original: resumeFile.name,
+      sanitized: sanitizedName,
+      size: resumeFile.size,
+      type: resumeFile.type,
+    });
+
     const timestamp = Date.now();
-    const path = `${job_id}/${timestamp}-${resumeFile.name}`;
+    const path = `${job_id}/${timestamp}-${sanitizedName}`;
     const buffer = Buffer.from(await resumeFile.arrayBuffer());
 
     const { error: uploadError } = await supabaseAdmin.storage
@@ -33,9 +76,10 @@ export async function submitApplication(
       .upload(path, buffer, { contentType: resumeFile.type });
 
     if (uploadError) {
+      console.error("Resume upload error:", uploadError);
       return {
         success: false,
-        error: "Failed to upload resume. Please try again.",
+        error: `Failed to upload resume: ${uploadError.message || "Please try again"}`,
       };
     }
 

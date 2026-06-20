@@ -28,7 +28,30 @@ export default function JobCard({ job, index }: JobCardProps) {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) setFileName(file.name);
+    if (!file) return;
+
+    // Validate file size (5MB = 5 * 1024 * 1024 bytes)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      setError("File size must be less than 5MB");
+      e.target.value = ""; // Clear the input
+      return;
+    }
+
+    // Validate file type
+    const allowedTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+    if (!allowedTypes.includes(file.type)) {
+      setError("Please upload a PDF or DOCX file");
+      e.target.value = ""; // Clear the input
+      return;
+    }
+
+    setError(null);
+    setFileName(file.name);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,11 +64,14 @@ export default function JobCard({ job, index }: JobCardProps) {
     formData.set("job_id", job.id);
     formData.set("job_title", job.title);
 
+    console.log("Submitting application with file:", fileName);
+
     const result = await submitApplication(formData);
 
     setIsSubmitting(false);
 
     if (!result.success) {
+      console.error("Application submission failed:", result.error);
       setError(result.error ?? "Something went wrong. Please try again.");
       return;
     }
