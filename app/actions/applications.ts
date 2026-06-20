@@ -12,7 +12,7 @@ export type Application = {
   email: string;
   cover_letter?: string;
   resume_file_name?: string;
-  resume_url?: string;
+  resume_path?: string;
   status: "new" | "reviewing" | "shortlisted" | "rejected";
   submitted_at: string;
 };
@@ -25,6 +25,21 @@ export async function getApplications(): Promise<Application[]> {
 
   if (error) return [];
   return data;
+}
+
+/**
+ * Generates a fresh signed URL for a resume, valid for 1 hour.
+ * Call this on demand when the admin clicks "Download" — never store the result.
+ */
+export async function getResumeDownloadUrl(
+  path: string,
+): Promise<{ url?: string; error?: string }> {
+  const { data, error } = await supabaseAdmin.storage
+    .from("resumes")
+    .createSignedUrl(path, 60 * 60); // 1 hour
+
+  if (error || !data) return { error: "Failed to generate download link." };
+  return { url: data.signedUrl };
 }
 
 export async function updateApplicationStatus(

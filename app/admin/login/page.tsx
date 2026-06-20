@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase/client";
 
 function AdminLoginContent() {
@@ -82,10 +83,13 @@ function AdminLoginContent() {
         {/* Logo */}
         <div className="mb-8 flex justify-center">
           <div className="relative h-8 w-28 overflow-hidden">
-            <img
+            <Image
               src="/makkn-logo.webp"
               alt="MAKKN"
-              className="absolute left-1/2 top-1/2 h-32 w-32 max-w-none -translate-x-1/2 -translate-y-1/2 object-contain"
+              width={128}
+              height={128}
+              className="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 object-contain"
+              priority
             />
           </div>
         </div>

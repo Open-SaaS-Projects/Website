@@ -13,6 +13,7 @@ import {
   type Application,
   updateApplicationStatus,
   deleteApplication,
+  getResumeDownloadUrl,
 } from "@/app/actions/applications";
 
 type ApplicationStatus = Application["status"];
@@ -43,6 +44,7 @@ function formatDate(dateString: string) {
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 
@@ -66,6 +68,19 @@ function ApplicationDrawer({
   onDelete,
 }: DrawerProps) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    if (!app.resume_path) return;
+    setIsDownloading(true);
+    const { url, error } = await getResumeDownloadUrl(app.resume_path);
+    setIsDownloading(false);
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    } else {
+      console.error("Failed to get resume download URL:", error);
+    }
+  };
 
   const handleDelete = () => {
     onDelete(app.id);
@@ -159,17 +174,16 @@ function ApplicationDrawer({
                   {app.resume_file_name || "No resume"}
                 </span>
               </div>
-              {app.resume_url ? (
-                <a
-                  href={app.resume_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-xs text-[#6320ce] hover:underline"
+              {app.resume_path ? (
+                <button
+                  onClick={handleDownload}
+                  disabled={isDownloading}
+                  className="flex items-center gap-1 text-xs text-[#6320ce] hover:underline disabled:opacity-50 disabled:cursor-wait"
                   title="Download resume"
                 >
                   <Download className="h-3.5 w-3.5" />
-                  Download
-                </a>
+                  {isDownloading ? "Loading..." : "Download"}
+                </button>
               ) : (
                 <button
                   disabled

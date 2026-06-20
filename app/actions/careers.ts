@@ -19,7 +19,18 @@ export async function submitApplication(
   const cover_letter = formData.get("cover_letter") as string | undefined;
   const resumeFile = formData.get("resume") as File | null;
 
-  let resume_url: string | undefined;
+  // Validate required fields
+  if (!job_id || !job_title || !first_name || !last_name || !email) {
+    return { success: false, error: "Please fill in all required fields." };
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return { success: false, error: "Please enter a valid email address." };
+  }
+
+  let resume_path: string | undefined;
   let resume_file_name: string | undefined;
 
   // Step 1 — Upload resume to Supabase Storage
@@ -83,15 +94,9 @@ export async function submitApplication(
       };
     }
 
-    // Generate signed URL valid for 7 days
-    const { data: signedData, error: signedError } = await supabaseAdmin.storage
-      .from("resumes")
-      .createSignedUrl(path, 60 * 60 * 24 * 7);
-
-    if (!signedError && signedData) {
-      resume_url = signedData.signedUrl;
-      resume_file_name = resumeFile.name;
-    }
+    // Store the storage path only — signed URLs are generated on demand
+    resume_path = path;
+    resume_file_name = resumeFile.name;
   }
 
   // Step 2 — Check for duplicate application
@@ -120,7 +125,7 @@ export async function submitApplication(
       email,
       cover_letter,
       resume_file_name,
-      resume_url,
+      resume_path,
       status: "new",
     });
 
@@ -132,6 +137,15 @@ export async function submitApplication(
   }
 
   // Step 4 — Send admin notification email
+  // Generate a short-lived signed URL only for the email (1 hour); it is never stored.
+  let emailResumeUrl: string | undefined;
+  if (resume_path) {
+    const { data: signedData } = await supabaseAdmin.storage
+      .from("resumes")
+      .createSignedUrl(resume_path, 60 * 60);
+    emailResumeUrl = signedData?.signedUrl;
+  }
+
   await sendEmail({
     to: "info@makkn.com",
     subject: `New Application — ${job_title}`,
@@ -141,7 +155,7 @@ export async function submitApplication(
       email,
       jobTitle: job_title,
       coverLetter: cover_letter,
-      resumeUrl: resume_url,
+      resumeUrl: emailResumeUrl,
       resumeFileName: resume_file_name,
       submittedAt: new Date().toISOString(),
     }),
