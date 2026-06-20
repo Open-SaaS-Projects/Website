@@ -153,21 +153,23 @@ export default function IndustryPageTemplate({
             </div>
           </AnimateOnScroll>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {industry.challenges.map((challenge, index) => (
               <AnimateOnScroll key={index} delay={index * 0.1}>
-                <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 h-full hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-[#6320ce] rounded-lg p-2">
-                      <AlertCircle className="h-5 w-5 text-white" />
+                <div className="bg-white border border-gray-200 rounded-3xl p-8 h-full hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-6">
+                    <div className="bg-[#6320ce] rounded-full p-4 flex-shrink-0">
+                      <AlertCircle className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900">
-                      {challenge.title}
-                    </h3>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">
+                        {challenge.title}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        {challenge.description}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-gray-500 leading-relaxed">
-                    {challenge.description}
-                  </p>
                 </div>
               </AnimateOnScroll>
             ))}
@@ -195,25 +197,23 @@ export default function IndustryPageTemplate({
             </div>
           </AnimateOnScroll>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {industry.solutions.map((solution, index) => {
               const SolutionIcon = iconMap[solution.icon] || BarChart3;
               return (
                 <AnimateOnScroll key={index} delay={index * 0.1}>
-                  <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow h-full">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-[#6320ce] rounded-lg p-3 flex-shrink-0">
-                        <SolutionIcon className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-2">
-                          {solution.title}
-                        </h3>
-                        <p className="text-gray-500 leading-relaxed">
-                          {solution.description}
-                        </p>
+                  <div className="bg-[#f5f3ff] rounded-3xl p-8 hover:shadow-lg transition-shadow h-full">
+                    <div className="flex justify-start mb-6">
+                      <div className="bg-[#6320ce] rounded-full p-4 w-16 h-16 flex items-center justify-center">
+                        <SolutionIcon className="h-8 w-8 text-white" />
                       </div>
                     </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                      {solution.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {solution.description}
+                    </p>
                   </div>
                 </AnimateOnScroll>
               );
