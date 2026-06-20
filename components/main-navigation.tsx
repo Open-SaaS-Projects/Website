@@ -27,6 +27,7 @@ import BookDemoDialog from "./BookDemoDialog";
 export default function MainNavigation() {
   const [productsOpen, setProductsOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
@@ -107,8 +108,22 @@ export default function MainNavigation() {
       <div className="flex h-20 items-center justify-between">
         <Logo />
         <nav className="hidden lg:flex gap-6">
-          <SolutionsDropdown solutions={solutions} />
-          <IndustriesDropdown industries={industries} />
+          <SolutionsDropdown
+            solutions={solutions}
+            open={solutionsOpen}
+            setOpen={(open) => {
+              setSolutionsOpen(open);
+              if (open) setIndustriesOpen(false);
+            }}
+          />
+          <IndustriesDropdown
+            industries={industries}
+            open={industriesOpen}
+            setOpen={(open) => {
+              setIndustriesOpen(open);
+              if (open) setSolutionsOpen(false);
+            }}
+          />
           <Link
             href="/#services"
             className="text-sm font-medium transition-colors hover:text-[#6D2FD5]"
