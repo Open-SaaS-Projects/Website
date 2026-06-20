@@ -94,7 +94,22 @@ export async function submitApplication(
     }
   }
 
-  // Step 2 — Insert application into DB
+  // Step 2 — Check for duplicate application
+  const { data: existingApplication } = await supabaseAdmin
+    .from("applications")
+    .select("id")
+    .eq("job_id", job_id)
+    .eq("email", email)
+    .single();
+
+  if (existingApplication) {
+    return {
+      success: false,
+      error: "You have already applied for this position.",
+    };
+  }
+
+  // Step 3 — Insert application into DB
   const { error: insertError } = await supabaseAdmin
     .from("applications")
     .insert({
@@ -116,7 +131,7 @@ export async function submitApplication(
     };
   }
 
-  // Step 3 — Send admin notification email
+  // Step 4 — Send admin notification email
   await sendEmail({
     to: "info@makkn.com",
     subject: `New Application — ${job_title}`,
@@ -132,7 +147,7 @@ export async function submitApplication(
     }),
   });
 
-  // Step 4 — Send applicant confirmation email
+  // Step 5 — Send applicant confirmation email
   await sendEmail({
     to: email,
     subject: `We received your application — ${job_title}`,
