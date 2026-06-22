@@ -1,0 +1,222 @@
+<h2>Design: Card-Based Mobile Admin</h2>
+<p class="subtitle">Responsive admin dashboard with burger menu sidebar and card layouts</p>
+
+<div class="section">
+  <h3>1. Mobile Navigation (Burger Menu Sidebar)</h3>
+  <div class="mockup">
+    <div class="mockup-header">Mobile: Sidebar Behavior</div>
+    <div class="mockup-body">
+      <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+        <!-- Closed state -->
+        <div style="flex: 1; min-width: 280px;">
+          <div class="label">Closed (Default)</div>
+          <div style="border: 2px solid #e5e7eb; border-radius: 12px; overflow: hidden; width: 100%; max-width: 375px;">
+            <!-- Header with burger -->
+            <div style="background: white; border-bottom: 1px solid #e5e7eb; padding: 16px; display: flex; align-items: center; gap: 12px;">
+              <button style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                  <div style="width: 18px; height: 2px; background: #374151; border-radius: 2px;"></div>
+                  <div style="width: 18px; height: 2px; background: #374151; border-radius: 2px;"></div>
+                  <div style="width: 18px; height: 2px; background: #374151; border-radius: 2px;"></div>
+                </div>
+              </button>
+              <div>
+                <div style="font-size: 14px; font-weight: 600;">Job Positions</div>
+                <div style="font-size: 11px; color: #9ca3af;">Manage positions</div>
+              </div>
+            </div>
+            <!-- Content visible -->
+            <div style="background: #f9fafb; padding: 16px; height: 200px;">
+              <div style="font-size: 12px; color: #6b7280;">Content area fully visible</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Open state -->
+        <div style="flex: 1; min-width: 280px;">
+          <div class="label">Open (Overlay)</div>
+          <div style="position: relative; width: 100%; max-width: 375px;">
+            <div style="border: 2px solid #e5e7eb; border-radius: 12px; overflow: hidden;">
+              <div style="background: white; border-bottom: 1px solid #e5e7eb; padding: 16px;">
+                <button style="width: 40px; height: 40px; background: #f9fafb; border-radius: 8px;">☰</button>
+              </div>
+              <div style="background: #f9fafb; padding: 16px; height: 200px; filter: blur(2px); opacity: 0.5;">
+                <div style="font-size: 12px; color: #6b7280;">Content (blurred)</div>
+              </div>
+            </div>
+            <!-- Overlay sidebar -->
+            <div style="position: absolute; top: 0; left: 0; width: 280px; height: 100%; background: #1e1040; color: white; padding: 16px; border-radius: 12px 0 0 12px; box-shadow: 4px 0 12px rgba(0,0,0,0.3);">
+              <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <div style="font-size: 11px; color: #c084fc;">MAKKN ADMIN</div>
+                <button style="color: white; font-size: 20px;">×</button>
+              </div>
+              <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
+                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; font-size: 13px;">📋 Jobs</div>
+                <div style="padding: 10px; font-size: 13px; color: rgba(255,255,255,0.5);">👥 Applications</div>
+                <div style="padding: 10px; font-size: 13px; color: rgba(255,255,255,0.5);">⚙️ Settings</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul style="margin-top: 16px; color: #6b7280; font-size: 13px;">
+        <li><strong>Burger icon:</strong> Only visible on mobile/tablet (below lg: 1024px)</li>
+        <li><strong>Sidebar:</strong> Slides in from left as overlay with backdrop blur</li>
+        <li><strong>Close:</strong> Click backdrop, close button (×), or nav item to dismiss</li>
+        <li><strong>Desktop:</strong> Burger hidden, sidebar always visible (current behavior)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>2. Stats Bar Responsive Layout</h3>
+  <div class="mockup">
+    <div class="mockup-header">Breakpoint Behavior</div>
+    <div class="mockup-body">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Mobile: 1 column -->
+        <div>
+          <div class="label">Mobile (< 640px): 1 Column</div>
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 340px;">
+            <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+              <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">TOTAL POSITIONS</div>
+              <div style="font-size: 32px; font-weight: 600; color: #6320ce;">12</div>
+            </div>
+            <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+              <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">ACTIVE</div>
+              <div style="font-size: 32px; font-weight: 600; color: #16a34a;">8</div>
+            </div>
+            <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+              <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">INACTIVE</div>
+              <div style="font-size: 32px; font-weight: 600; color: #9ca3af;">4</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tablet: 3 columns -->
+        <div>
+          <div class="label">Tablet+ (≥ 640px): 3 Columns</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 600px;">
+            <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+              <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">TOTAL POSITIONS</div>
+              <div style="font-size: 28px; font-weight: 600; color: #6320ce;">12</div>
+            </div>
+            <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+              <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">ACTIVE</div>
+              <div style="font-size: 28px; font-weight: 600; color: #16a34a;">8</div>
+            </div>
+            <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+              <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">INACTIVE</div>
+              <div style="font-size: 28px; font-weight: 600; color: #9ca3af;">4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top: 16px; color: #6b7280; font-size: 13px;"><strong>Implementation:</strong> Change <code>grid-cols-3</code> to <code>grid-cols-1 sm:grid-cols-3</code></p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>3. Job Table: Desktop Table / Mobile Cards</h3>
+  <div class="mockup">
+    <div class="mockup-header">Responsive Job List</div>
+    <div class="mockup-body">
+      <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+        <!-- Desktop -->
+        <div style="flex: 1; min-width: 400px;">
+          <div class="label">Desktop (≥ 1024px): Table</div>
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; font-size: 12px;">
+            <div style="display: grid; grid-template-columns: 1fr 120px 100px 120px; gap: 12px; background: #f9fafb; padding: 12px; border-bottom: 1px solid #e5e7eb; font-size: 10px; color: #9ca3af; font-weight: 600;">
+              <div>POSITION</div>
+              <div>TYPE</div>
+              <div>STATUS</div>
+              <div>ACTIONS</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 120px 100px 120px; gap: 12px; padding: 12px; border-bottom: 1px solid #f3f4f6;">
+              <div>
+                <div style="font-weight: 600; margin-bottom: 2px;">Senior Full Stack Engineer</div>
+                <div style="font-size: 10px; color: #9ca3af;">Engineering · Remote</div>
+              </div>
+              <div style="align-self: center;">Full-time</div>
+              <div style="align-self: center;"><span style="background: #dcfce7; color: #16a34a; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 500;">Active</span></div>
+              <div style="display: flex; gap: 6px; align-self: center;">
+                <button style="width: 28px; height: 28px; background: #f3e8ff; border-radius: 6px; font-size: 11px;">✏️</button>
+                <button style="width: 28px; height: 28px; background: #dcfce7; border-radius: 6px; font-size: 11px;">👁️</button>
+                <button style="width: 28px; height: 28px; background: #fee2e2; border-radius: 6px; font-size: 11px;">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile -->
+        <div style="flex: 1; min-width: 280px;">
+          <div class="label">Mobile (< 1024px): Cards</div>
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 340px;">
+            <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                <div style="flex: 1;">
+                  <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Senior Full Stack Engineer</div>
+                  <div style="font-size: 11px; color: #9ca3af;">Engineering · Remote</div>
+                </div>
+                <span style="background: #dcfce7; color: #16a34a; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 500; white-space: nowrap; margin-left: 8px;">Active</span>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f3f4f6;">
+                <div style="font-size: 12px; color: #6b7280;">Full-time</div>
+                <div style="display: flex; gap: 6px;">
+                  <button style="width: 32px; height: 32px; background: #f3e8ff; border-radius: 8px; font-size: 12px; border: 1px solid #e9d5ff;">✏️</button>
+                  <button style="width: 32px; height: 32px; background: #dcfce7; border-radius: 8px; font-size: 12px; border: 1px solid #bbf7d0;">👁️</button>
+                  <button style="width: 32px; height: 32px; background: #fee2e2; border-radius: 8px; font-size: 12px; border: 1px solid #fecaca;">🗑️</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; opacity: 0.6;">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                <div style="flex: 1;">
+                  <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">AI/ML Engineer</div>
+                  <div style="font-size: 11px; color: #9ca3af;">Data Science · Hybrid</div>
+                </div>
+                <span style="background: #f3f4f6; color: #6b7280; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 500; white-space: nowrap; margin-left: 8px;">Inactive</span>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f3f4f6;">
+                <div style="font-size: 12px; color: #6b7280;">Full-time</div>
+                <div style="display: flex; gap: 6px;">
+                  <button style="width: 32px; height: 32px; background: #f3e8ff; border-radius: 8px; font-size: 12px;">✏️</button>
+                  <button style="width: 32px; height: 32px; background: #f3f4f6; border-radius: 8px; font-size: 12px;">👁️</button>
+                  <button style="width: 32px; height: 32px; background: #fee2e2; border-radius: 8px; font-size: 12px;">🗑️</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top: 16px; color: #6b7280; font-size: 13px;"><strong>Implementation:</strong> Two render paths - <code>&lt;div className="hidden lg:block"&gt;</code> for table, <code>&lt;div className="block lg:hidden"&gt;</code> for cards</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>4. Applications Panel: Same Pattern</h3>
+  <div style="background: #f9fafb; padding: 16px; border-radius: 12px; border: 1px solid #e5e7eb;">
+    <p style="margin: 0; color: #6b7280; font-size: 14px;">ApplicationsPanel will follow the same card-based pattern:</p>
+    <ul style="color: #6b7280; font-size: 13px; margin: 12px 0 0 0;">
+      <li><strong>Desktop:</strong> Keep existing table with grid-cols-[1fr_180px_110px_100px_40px]</li>
+      <li><strong>Mobile:</strong> Cards showing applicant name, job title, status badge, and tap-to-open drawer</li>
+      <li><strong>Filters:</strong> Stack vertically on mobile instead of horizontal row</li>
+      <li><strong>Drawer:</strong> Already works well on mobile (max-w-md, full-height)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <h3>5. Header Responsive Adjustments</h3>
+  <div style="background: #f9fafb; padding: 16px; border-radius: 12px; border: 1px solid #e5e7eb;">
+    <ul style="color: #6b7280; font-size: 13px; margin: 0;">
+      <li><strong>Mobile:</strong> Reduce padding (px-4 py-3), smaller text (text-sm)</li>
+      <li><strong>"Add position" button:</strong> Show icon only on mobile (< sm), full text on tablet+</li>
+      <li><strong>Title/subtitle:</strong> Keep visible but reduce font size on mobile</li>
+    </ul>
+  </div>
+</div>

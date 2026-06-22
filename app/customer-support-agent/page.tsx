@@ -33,8 +33,8 @@ const solutions = [
 export default function CustomerSupportAgentPage() {
   const [productsOpen, setProductsOpen] = useState(false);
   
-  // Find the Customer Support Automation agent data
-  const customerSupportAgent = agents.find(agent => agent.name === "Customer Support Automation");
+  // Find the Customer Support Intelligence agent data
+  const customerSupportAgent = agents.find(agent => agent.name === "Customer Support Intelligence");
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -47,7 +47,7 @@ export default function CustomerSupportAgentPage() {
           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8 lg:mb-12">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-[#6320ce] mb-4">
-                Customer Support Automation
+                Customer Support Intelligence
               </h1>
               <p className="max-w-4xl text-muted-foreground text-lg md:text-xl lg:text-2xl leading-relaxed">
                 Automate your customer support with AI that understands and

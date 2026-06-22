@@ -1,0 +1,126 @@
+<h2>Current Admin Page Layout</h2>
+<p class="subtitle">Here's how the admin page currently behaves on different screen sizes</p>
+
+<div class="section">
+  <h3>Desktop View (Working)</h3>
+  <div class="mockup">
+    <div class="mockup-header">1024px+ width</div>
+    <div class="mockup-body" style="display: flex; height: 400px;">
+      <!-- Sidebar -->
+      <div style="width: 224px; background: #1e1040; color: white; padding: 16px; flex-shrink: 0;">
+        <div style="padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 12px;">
+          <div style="font-size: 11px; color: #c084fc;">MAKKN ADMIN</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; border-left: 2px solid #6320ce; font-size: 13px;">📋 Jobs</div>
+          <div style="padding: 10px; font-size: 13px; color: rgba(255,255,255,0.5);">👥 Applications <span style="background: #6320ce; padding: 2px 6px; border-radius: 12px; font-size: 10px; margin-left: 8px;">3</span></div>
+          <div style="padding: 10px; font-size: 13px; color: rgba(255,255,255,0.5);">⚙️ Settings</div>
+        </div>
+        <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: rgba(255,255,255,0.4);">
+          admin@makkn.com
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div style="flex: 1; background: #f9fafb; padding: 20px; overflow: auto;">
+        <div style="background: white; padding: 16px; border-bottom: 1px solid #e5e7eb; margin: -20px -20px 20px -20px;">
+          <div style="font-size: 16px; font-weight: 600;">Job Positions</div>
+          <div style="font-size: 11px; color: #9ca3af;">Manage open and inactive positions</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px;">
+            <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">TOTAL POSITIONS</div>
+            <div style="font-size: 28px; font-weight: 600; color: #6320ce;">12</div>
+          </div>
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px;">
+            <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">ACTIVE</div>
+            <div style="font-size: 28px; font-weight: 600; color: #16a34a;">8</div>
+          </div>
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px;">
+            <div style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">INACTIVE</div>
+            <div style="font-size: 28px; font-weight: 600; color: #9ca3af;">4</div>
+          </div>
+        </div>
+        <div style="background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 120px 100px 120px; gap: 16px; font-size: 10px; color: #9ca3af; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb;">
+            <div>POSITION</div>
+            <div>TYPE</div>
+            <div>STATUS</div>
+            <div>ACTIONS</div>
+          </div>
+          <div style="padding: 12px 0; font-size: 13px;">
+            <div style="display: grid; grid-template-columns: 1fr 120px 100px 120px; gap: 16px;">
+              <div>
+                <div style="font-weight: 600;">Senior Full Stack Engineer</div>
+                <div style="font-size: 11px; color: #9ca3af;">Engineering · Remote</div>
+              </div>
+              <div>Full-time</div>
+              <div><span style="background: #dcfce7; color: #16a34a; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Active</span></div>
+              <div style="display: flex; gap: 8px;">
+                <button style="width: 32px; height: 32px; background: #f3e8ff; border-radius: 8px;">✏️</button>
+                <button style="width: 32px; height: 32px; background: #dcfce7; border-radius: 8px;">👁️</button>
+                <button style="width: 32px; height: 32px; background: #fee2e2; border-radius: 8px;">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Mobile View (Broken - The Problem)</h3>
+  <div class="mockup">
+    <div class="mockup-header">375px width (iPhone)</div>
+    <div class="mockup-body" style="display: flex; height: 600px; width: 375px; margin: 0 auto; border: 2px solid #e5e7eb;">
+      <!-- Sidebar takes fixed 224px - squishes content -->
+      <div style="width: 224px; background: #1e1040; color: white; padding: 12px; flex-shrink: 0; overflow: hidden;">
+        <div style="font-size: 9px; color: #c084fc; margin-bottom: 8px;">MAKKN</div>
+        <div style="font-size: 11px; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 4px;">Jobs</div>
+        <div style="font-size: 11px; padding: 8px; color: rgba(255,255,255,0.5);">Apps</div>
+      </div>
+
+      <!-- Main content crushed into ~150px -->
+      <div style="flex: 1; background: #f9fafb; padding: 8px; overflow: hidden;">
+        <div style="background: white; padding: 8px; margin: -8px -8px 8px -8px; border-bottom: 1px solid #e5e7eb;">
+          <div style="font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Job Positions</div>
+        </div>
+        <!-- Stats completely broken -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 8px;">
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px; overflow: hidden;">
+            <div style="font-size: 7px; color: #9ca3af;">TOTAL</div>
+            <div style="font-size: 14px; font-weight: 600; color: #6320ce;">12</div>
+          </div>
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px; overflow: hidden;">
+            <div style="font-size: 7px; color: #9ca3af;">ACT</div>
+            <div style="font-size: 14px; font-weight: 600; color: #16a34a;">8</div>
+          </div>
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px; overflow: hidden;">
+            <div style="font-size: 7px; color: #9ca3af;">INA</div>
+            <div style="font-size: 14px; font-weight: 600; color: #9ca3af;">4</div>
+          </div>
+        </div>
+        <!-- Table completely unusable -->
+        <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px; overflow: hidden;">
+          <div style="font-size: 8px; color: red; font-weight: 600;">❌ TABLE BROKEN</div>
+          <div style="font-size: 7px; color: #9ca3af; margin-top: 4px;">Grid layout doesn't fit</div>
+          <div style="font-size: 7px; color: #9ca3af;">Text truncated/overlapping</div>
+          <div style="font-size: 7px; color: #9ca3af;">Actions inaccessible</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background: #fef3c7; padding: 16px; border-radius: 12px; border-left: 4px solid #f59e0b;">
+  <h3 style="margin-top: 0; color: #92400e;">Key Issues on Mobile</h3>
+  <ul style="color: #78350f; margin: 0; padding-left: 20px;">
+    <li><strong>Sidebar always visible:</strong> Takes 224px, leaving ~150px for content on 375px screens</li>
+    <li><strong>Fixed grid layouts:</strong> JobTable uses grid-cols-[1fr_120px_100px_120px] which doesn't collapse</li>
+    <li><strong>StatsBar:</strong> grid-cols-3 creates tiny, cramped stat cards</li>
+    <li><strong>ApplicationsPanel:</strong> Similar grid issues with grid-cols-[1fr_180px_110px_100px_40px]</li>
+    <li><strong>Header button:</strong> "Add position" button may be cut off</li>
+    <li><strong>No mobile navigation:</strong> Sidebar never collapses or becomes a drawer</li>
+  </ul>
+</div>

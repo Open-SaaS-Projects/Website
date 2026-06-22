@@ -7,9 +7,16 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: false,
   },
-  output: 'standalone',
-}
+  output: "standalone",
+  webpack: (config, { isServer }) => {
+    // Suppress webpack cache serialization warnings
+    config.infrastructureLogging = {
+      level: "error",
+    };
+    return config;
+  },
+};
 
-export default nextConfig
+export default nextConfig;

@@ -31,7 +31,7 @@ export default function MainFooter() {
     <footer className="w-full py-6 bg-background border-t">
       <div className="container mx-auto px-4 md:px-6">
         {/* Updated grid with equal column widths and proper spacing */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
           {/* Company info column */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
@@ -72,7 +72,7 @@ export default function MainFooter() {
                 href="/customer-support-agent"
                 className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
               >
-                Customer Support Automation
+                Customer Support Intelligence
               </Link>
               <Link
                 href="/data-structuring-engine"
@@ -97,6 +97,37 @@ export default function MainFooter() {
                 className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
               >
                 Growth Intelligence
+              </Link>
+            </nav>
+          </div>
+
+          {/* Industries column - equal width */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-bold">Industries</h3>
+            <nav className="flex flex-col gap-2">
+              <Link
+                href="/industries/ai-for-real-estate"
+                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
+              >
+                AI for Real Estate
+              </Link>
+              <Link
+                href="/industries/ai-for-retail-ecommerce"
+                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
+              >
+                AI for Retail & E-Commerce
+              </Link>
+              <Link
+                href="/industries/ai-for-healthcare"
+                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
+              >
+                AI for Healthcare
+              </Link>
+              <Link
+                href="/industries/ai-for-manufacturing"
+                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
+              >
+                AI for Manufacturing
               </Link>
             </nav>
           </div>

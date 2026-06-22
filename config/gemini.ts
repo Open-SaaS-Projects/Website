@@ -85,7 +85,7 @@ Ownership – Taking responsibility for our impact
 
 🌐 Key Solutions
 
-Customer Support Automation – AI-powered assistants for client interaction
+Customer Support Intelligence – AI-powered assistants for client interaction
 
 AI Talent Assistant – Automates hiring, candidate evaluation, and recruitment at scale
 

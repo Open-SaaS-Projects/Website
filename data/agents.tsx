@@ -32,7 +32,7 @@ interface Agent {
 
 export const agents: Agent[] = [
   {
-    name: "Customer Support Automation",
+    name: "Customer Support Intelligence",
     title: "",
     description:
       "Automate your customer support with AI that understands and resolves issues instantly.",
