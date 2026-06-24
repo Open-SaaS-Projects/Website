@@ -71,47 +71,57 @@ const ContextProvider = (props: any) => {
     const newPrompts = [...prevPrompts, input];
     setPrevPrompts(newPrompts);
     
-    response = await runChat(input, { prompts: prevPrompts, results: prevResults });
+    try {
+      response = await runChat(input, { prompts: prevPrompts, results: prevResults });
 
-    let responseArray = response.split("**");
-    let newArray = "";
-    for (let i = 0; i < responseArray.length; i++) {
-      if (i % 2 === 0) {
-        newArray += responseArray[i];
-      } else {
-        newArray += "<b>" + responseArray[i] + "</b>";
+      let responseArray = response.split("**");
+      let newArray = "";
+      for (let i = 0; i < responseArray.length; i++) {
+        if (i % 2 === 0) {
+          newArray += responseArray[i];
+        } else {
+          newArray += "<b>" + responseArray[i] + "</b>";
+        }
       }
+      let newArray2 = newArray.split("*").join("<br/>");
+
+      const newResults = [...prevResults, newArray2];
+      setPrevResults(newResults);
+
+      let newResponseArray = newArray2.split(" ");
+      for (let i = 0; i < newResponseArray.length; i++) {
+        const nextWord = newResponseArray[i];
+        delayParam(i, nextWord + " ");
+      }
+
+      let chatId = currentChat;
+      if (chatId == -1) {
+        setCurrentChat(nextId.current);
+        const newChatList = [...chatList, { id: nextId.current, firstPrompt: input }];
+        setChatList(newChatList);
+        localStorage.setItem("chatList", JSON.stringify(newChatList));
+        chatId = nextId.current++;
+      }
+
+      localStorage.setItem(
+        `__chat_${chatId}`,
+        JSON.stringify({
+          prompts: newPrompts,
+          results: newResults,
+        })
+      );
+    } catch (error) {
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error in chatbot response generation:", error);
+      }
+      const errorMessage = "Sorry, I am currently experiencing high demand and could not respond. Please try again in a few moments.";
+      const newResults = [...prevResults, errorMessage];
+      setPrevResults(newResults);
+      setResultData(errorMessage);
+    } finally {
+      setLoading(false);
+      setInput("");
     }
-    let newArray2 = newArray.split("*").join("<br/>");
-
-    const newResults = [...prevResults, newArray2];
-    setPrevResults(newResults);
-
-    let newResponseArray = newArray2.split(" ");
-    for (let i = 0; i < newResponseArray.length; i++) {
-      const nextWord = newResponseArray[i];
-      delayParam(i, nextWord + " ");
-    }
-
-    let chatId = currentChat;
-    if (chatId == -1) {
-      setCurrentChat(nextId.current);
-      const newChatList = [...chatList, { id: nextId.current, firstPrompt: input }];
-      setChatList(newChatList);
-      localStorage.setItem("chatList", JSON.stringify(newChatList));
-      chatId = nextId.current++;
-    }
-
-    localStorage.setItem(
-      `__chat_${chatId}`,
-      JSON.stringify({
-        prompts: newPrompts,
-        results: newResults,
-      })
-    );
-
-    setLoading(false);
-    setInput("");
   };
 
   const contextValue = {

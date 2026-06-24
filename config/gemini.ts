@@ -8,8 +8,12 @@ if (!apiKey) {
 
 const genAI = new GoogleGenerativeAI(apiKey);
 
-const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash",
+const primaryModel = genAI.getGenerativeModel({
+  model: "gemini-3.5-flash",
+});
+
+const fallbackModel = genAI.getGenerativeModel({
+  model: "gemini-3.1-flash-lite",
 });
 
 const generationConfig = {
@@ -206,13 +210,33 @@ async function runChat(userMessage: string, conversationHistory?: { prompts: str
     }
   }
 
-  const chatSession = model.startChat({
-    generationConfig,
-    history,
-  });
+  try {
+    const chatSession = primaryModel.startChat({
+      generationConfig,
+      history,
+    });
 
-  const result = await chatSession.sendMessage(userMessage);
-  return result.response.text();
+    const result = await chatSession.sendMessage(userMessage);
+    return result.response.text();
+  } catch (error: any) {
+    if (process.env.NODE_ENV === "development") {
+      console.warn("Primary model (gemini-3.5-flash) failed or rate limited, trying fallback (gemini-3.1-flash-lite):", error);
+    }
+    try {
+      const chatSession = fallbackModel.startChat({
+        generationConfig,
+        history,
+      });
+
+      const result = await chatSession.sendMessage(userMessage);
+      return result.response.text();
+    } catch (fallbackError) {
+      if (process.env.NODE_ENV === "development") {
+        console.error("Fallback model (gemini-3.1-flash-lite) also failed:", fallbackError);
+      }
+      throw error;
+    }
+  }
 }
 
 export default runChat;
