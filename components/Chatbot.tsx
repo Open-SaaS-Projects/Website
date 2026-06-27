@@ -49,7 +49,7 @@ export default function Chatbot() {
   };
 
   // Convert context data to messages format for display
-  const messages = [];
+  const messages: Message[] = [];
 
   // Always add initial greeting as the first message
   messages.push({
@@ -59,11 +59,8 @@ export default function Chatbot() {
     timestamp: new Date(),
   });
 
-  // Add previous conversation (excluding the last one if it's currently being animated)
-  // Only hide the last result slot while it's being typed out (animated),
-  // NOT during loading — that was causing the previous response to disappear.
-  const isAnimating = !loading && showResult && !!resultData && prevResults.length > 0;
-  const resultsToShow = isAnimating ? prevResults.length - 1 : prevResults.length;
+  // Whether we're currently typing out the latest response word-by-word
+  const isAnimatingLatest = !loading && showResult && !!resultData;
 
   for (let i = 0; i < prevPrompts.length; i++) {
     messages.push({
@@ -73,18 +70,20 @@ export default function Chatbot() {
       timestamp: new Date(),
     });
 
-    // Only show completed results, not the one being animated
-    if (i < resultsToShow && prevResults[i]) {
+    if (prevResults[i]) {
+      const isLatest = i === prevResults.length - 1;
       messages.push({
         id: `bot-${i}`,
-        text: prevResults[i],
+        // While animating the latest result, show live resultData instead of
+        // the completed text — this avoids ever hiding older messages.
+        text: isLatest && isAnimatingLatest ? resultData : prevResults[i],
         isUser: false,
         timestamp: new Date(),
       });
     }
   }
 
-  // Add current loading or animated result
+  // Show a loading indicator for the pending response (not yet in prevResults)
   if (loading) {
     messages.push({
       id: "loading",
@@ -92,14 +91,8 @@ export default function Chatbot() {
       isUser: false,
       timestamp: new Date(),
     });
-  } else if (showResult && resultData) {
-    messages.push({
-      id: "current-result",
-      text: resultData,
-      isUser: false,
-      timestamp: new Date(),
-    });
   }
+
 
   return (
     <div className="fixed bottom-6 right-6 z-[9999]">
