@@ -52,6 +52,51 @@ function getInitials(first: string, last: string) {
   return `${first[0]}${last[0]}`.toUpperCase();
 }
 
+// ── CSV export helpers ───────────────────────────────────────────────────────
+
+function escapeCsvField(value: string): string {
+  if (/[,"\n]/.test(value)) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  return value;
+}
+
+function buildCsvString(apps: Application[]): string {
+  const header =
+    "First Name,Last Name,Email,Job Title,Status,Submitted Date,Cover Letter,Resume Path";
+  const rows = apps.map((a) => {
+    const submittedDate = new Date(a.submitted_at).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      timeZone: "UTC",
+    });
+    return [
+      escapeCsvField(a.first_name),
+      escapeCsvField(a.last_name),
+      escapeCsvField(a.email),
+      escapeCsvField(a.job_title),
+      escapeCsvField(a.status),
+      escapeCsvField(submittedDate),
+      escapeCsvField(a.cover_letter ?? ""),
+      escapeCsvField(a.resume_path ?? ""),
+    ].join(",");
+  });
+  return [header, ...rows].join("\n");
+}
+
+function buildExportFilename(activeJobFilter: string): string {
+  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+  if (activeJobFilter !== "all") {
+    const slug = activeJobFilter
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
+    return `applications-${slug}-${today}.csv`;
+  }
+  return `applications-all-${today}.csv`;
+}
+
 // ── Detail drawer ────────────────────────────────────────────────────────────
 
 interface DrawerProps {
@@ -283,6 +328,17 @@ export default function ApplicationsPanel({
     return matchesJob && matchesStatus && matchesSearch;
   });
 
+  const handleExportCsv = () => {
+    const csvString = buildCsvString(filtered);
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = buildExportFilename(filterJob);
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   const handleStatusChange = (id: string, status: ApplicationStatus) => {
     startTransition(() => {
       updateApplicationStatus(id, status);
@@ -341,9 +397,19 @@ export default function ApplicationsPanel({
           ))}
         </select>
 
-        <span className="ml-auto text-xs text-gray-400">
-          {filtered.length} result{filtered.length !== 1 ? "s" : ""}
-        </span>
+        <div className="ml-auto flex flex-col items-end gap-1">
+          <button
+            onClick={handleExportCsv}
+            disabled={filtered.length === 0}
+            className="flex items-center gap-1.5 rounded-full border border-[#6320ce] bg-white px-3.5 py-1.5 text-xs font-medium text-[#6320ce] transition-colors hover:bg-purple-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Download className="h-3.5 w-3.5" />
+            Export ({filtered.length})
+          </button>
+          <span className="text-xs text-gray-400">
+            Resume links in exports expire after 7 days.
+          </span>
+        </div>
       </div>
 
       {/* Table / Cards */}
