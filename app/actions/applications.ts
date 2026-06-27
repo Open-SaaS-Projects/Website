@@ -42,6 +42,29 @@ export async function getResumeDownloadUrl(
   return { url: data.signedUrl };
 }
 
+/**
+ * Generates signed download URLs for multiple resume paths at once.
+ * Returns a map of { [path]: signedUrl }.
+ * Paths that fail are omitted from the result.
+ */
+export async function getResumeDownloadUrls(
+  paths: string[],
+): Promise<Record<string, string>> {
+  const unique = [...new Set(paths.filter(Boolean))];
+  if (unique.length === 0) return {};
+
+  const result: Record<string, string> = {};
+  await Promise.all(
+    unique.map(async (path) => {
+      const { data, error } = await supabaseAdmin.storage
+        .from("resumes")
+        .createSignedUrl(path, 60 * 60 * 24 * 7); // 7 days
+      if (!error && data) result[path] = data.signedUrl;
+    }),
+  );
+  return result;
+}
+
 export async function updateApplicationStatus(
   id: string,
   status: Application["status"],

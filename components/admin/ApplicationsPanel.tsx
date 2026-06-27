@@ -14,6 +14,7 @@ import {
   updateApplicationStatus,
   deleteApplication,
   getResumeDownloadUrl,
+  getResumeDownloadUrls,
 } from "@/app/actions/applications";
 
 type ApplicationStatus = Application["status"];
@@ -61,9 +62,12 @@ function escapeCsvField(value: string): string {
   return value;
 }
 
-function buildCsvString(apps: Application[]): string {
+function buildCsvString(
+  apps: Application[],
+  resumeUrls: Record<string, string>,
+): string {
   const header =
-    "First Name,Last Name,Email,Job Title,Status,Submitted Date,Cover Letter,Resume Path";
+    "First Name,Last Name,Email,Job Title,Status,Submitted Date,Cover Letter,Resume URL";
   const rows = apps.map((a) => {
     const submittedDate = new Date(a.submitted_at).toLocaleDateString("en-US", {
       month: "short",
@@ -71,6 +75,8 @@ function buildCsvString(apps: Application[]): string {
       year: "numeric",
       timeZone: "UTC",
     });
+    const resumeUrl =
+      a.resume_path ? (resumeUrls[a.resume_path] ?? "") : "";
     return [
       escapeCsvField(a.first_name),
       escapeCsvField(a.last_name),
@@ -79,7 +85,7 @@ function buildCsvString(apps: Application[]): string {
       escapeCsvField(a.status),
       escapeCsvField(submittedDate),
       escapeCsvField(a.cover_letter ?? ""),
-      escapeCsvField(a.resume_path ?? ""),
+      escapeCsvField(resumeUrl),
     ].join(",");
   });
   return [header, ...rows].join("\n");
@@ -328,8 +334,12 @@ export default function ApplicationsPanel({
     return matchesJob && matchesStatus && matchesSearch;
   });
 
-  const handleExportCsv = () => {
-    const csvString = buildCsvString(filtered);
+  const handleExportCsv = async () => {
+    const paths = filtered
+      .map((a) => a.resume_path)
+      .filter(Boolean) as string[];
+    const resumeUrls = await getResumeDownloadUrls(paths);
+    const csvString = buildCsvString(filtered, resumeUrls);
     const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -406,9 +416,6 @@ export default function ApplicationsPanel({
             <Download className="h-3.5 w-3.5" />
             Export ({filtered.length})
           </button>
-          <span className="text-xs text-gray-400">
-            Resume links in exports expire after 7 days.
-          </span>
         </div>
       </div>
 
