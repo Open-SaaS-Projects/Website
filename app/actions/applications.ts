@@ -53,15 +53,18 @@ export async function getResumeDownloadUrls(
   const unique = [...new Set(paths.filter(Boolean))];
   if (unique.length === 0) return {};
 
+  const { data, error } = await supabaseAdmin.storage
+    .from("resumes")
+    .createSignedUrls(unique, 60 * 60 * 24 * 7); // 7 days, single request
+
+  if (error || !data) return {};
+
   const result: Record<string, string> = {};
-  await Promise.all(
-    unique.map(async (path) => {
-      const { data, error } = await supabaseAdmin.storage
-        .from("resumes")
-        .createSignedUrl(path, 60 * 60 * 24 * 7); // 7 days
-      if (!error && data) result[path] = data.signedUrl;
-    }),
-  );
+  for (const item of data) {
+    if (item.signedUrl && item.path) {
+      result[item.path] = item.signedUrl;
+    }
+  }
   return result;
 }
 

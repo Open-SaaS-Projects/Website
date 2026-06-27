@@ -56,7 +56,7 @@ function getInitials(first: string, last: string) {
 // ── CSV export helpers ───────────────────────────────────────────────────────
 
 function escapeCsvField(value: string): string {
-  if (/[,"\n]/.test(value)) {
+  if (/[,"\r\n]/.test(value)) {
     return `"${value.replace(/"/g, '""')}"`;
   }
   return value;
@@ -320,6 +320,7 @@ export default function ApplicationsPanel({
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Application | null>(null);
+  const [isExporting, setIsExporting] = useState(false);
 
   const jobTitles = Array.from(new Set(applications.map((a) => a.job_title)));
 
@@ -335,18 +336,25 @@ export default function ApplicationsPanel({
   });
 
   const handleExportCsv = async () => {
-    const paths = filtered
-      .map((a) => a.resume_path)
-      .filter(Boolean) as string[];
-    const resumeUrls = await getResumeDownloadUrls(paths);
-    const csvString = buildCsvString(filtered, resumeUrls);
-    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = buildExportFilename(filterJob);
-    link.click();
-    URL.revokeObjectURL(url);
+    setIsExporting(true);
+    try {
+      const paths = filtered
+        .map((a) => a.resume_path)
+        .filter(Boolean) as string[];
+      const resumeUrls = await getResumeDownloadUrls(paths);
+      const csvString = buildCsvString(filtered, resumeUrls);
+      const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = buildExportFilename(filterJob);
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Failed to export CSV:", error);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const handleStatusChange = (id: string, status: ApplicationStatus) => {
@@ -410,11 +418,11 @@ export default function ApplicationsPanel({
         <div className="ml-auto flex flex-col items-end gap-1">
           <button
             onClick={handleExportCsv}
-            disabled={filtered.length === 0}
+            disabled={filtered.length === 0 || isExporting}
             className="flex items-center gap-1.5 rounded-full border border-[#6320ce] bg-white px-3.5 py-1.5 text-xs font-medium text-[#6320ce] transition-colors hover:bg-purple-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Download className="h-3.5 w-3.5" />
-            Export ({filtered.length})
+            {isExporting ? "Exporting..." : `Export (${filtered.length})`}
           </button>
         </div>
       </div>
