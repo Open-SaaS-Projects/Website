@@ -60,8 +60,10 @@ export default function Chatbot() {
   });
 
   // Add previous conversation (excluding the last one if it's currently being animated)
-  const showAnimated = loading || (showResult && resultData && prevResults.length > 0);
-  const resultsToShow = showAnimated ? prevResults.length - 1 : prevResults.length;
+  // Only hide the last result slot while it's being typed out (animated),
+  // NOT during loading — that was causing the previous response to disappear.
+  const isAnimating = !loading && showResult && !!resultData && prevResults.length > 0;
+  const resultsToShow = isAnimating ? prevResults.length - 1 : prevResults.length;
 
   for (let i = 0; i < prevPrompts.length; i++) {
     messages.push({
