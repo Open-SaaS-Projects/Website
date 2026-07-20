@@ -20,8 +20,8 @@ export default function ProductDetail({
   onBack,
 }: ProductDetailProps) {
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8 md:py-12 lg:flex lg:gap-10">
-      <aside className="mb-8 lg:mb-0 lg:w-40 lg:flex-shrink-0">
+    <div className="w-full px-4 py-8 md:px-8 md:py-12 lg:flex lg:gap-10 lg:px-12">
+      <aside className="mb-8 lg:sticky lg:top-24 lg:mb-0 lg:w-40 lg:flex-shrink-0 lg:self-start">
         <button
           onClick={onBack}
           className="mb-4 hidden items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-[#6320ce] lg:flex"
