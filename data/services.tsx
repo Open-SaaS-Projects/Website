@@ -70,4 +70,28 @@ export const servicesData = [
       </svg>
     ),
   },
+  {
+    id: "makkn-erp",
+    title: "MAKKN ERP",
+    description:
+      "End-to-end Odoo ERP implementation that unifies sales, accounting, inventory, HR, and operations into one connected system, enhanced with AI-powered features. We tailor every deployment to your business processes, turning a standard ERP rollout into an intelligent, self-improving operating system for your company.",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-6 w-6"
+      >
+        <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+        <path d="M2 10h20"></path>
+        <path d="M6 15h4"></path>
+      </svg>
+    ),
+  },
 ];
