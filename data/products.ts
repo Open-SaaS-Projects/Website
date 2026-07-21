@@ -6,6 +6,7 @@ export interface ProductHighlight {
 export interface Product {
   slug: string;
   name: string;
+  category: string;
   tagline: string;
   highlights: ProductHighlight[];
   featureList: string[];
@@ -15,6 +16,7 @@ export const products: Product[] = [
   {
     slug: "insight",
     name: "MAKKN Insight",
+    category: "Call Intelligence",
     tagline:
       "MAKKN Insight automatically turns every sales and support call into a transcript, a summary, a score, and a clear next action.",
     highlights: [
@@ -60,6 +62,7 @@ export const products: Product[] = [
   {
     slug: "desk",
     name: "MAKKN Desk",
+    category: "AI Support Agent",
     tagline:
       "MAKKN Desk is an AI support agent trained on your business, ready to answer, resolve, and act across every channel your customers use.",
     highlights: [
@@ -105,6 +108,7 @@ export const products: Product[] = [
   {
     slug: "guard",
     name: "MAKKN Guard",
+    category: "Site Safety Monitoring",
     tagline:
       "MAKKN Guard watches over your facility so your safety team doesn't have to be everywhere at once.",
     highlights: [
@@ -150,6 +154,7 @@ export const products: Product[] = [
   {
     slug: "docs",
     name: "MAKKN Docs",
+    category: "Document Automation",
     tagline:
       "MAKKN Docs reads, understands, and organizes your documents automatically, turning paper and scans into searchable, validated data.",
     highlights: [

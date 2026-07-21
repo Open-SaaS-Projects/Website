@@ -6,11 +6,8 @@ import { Button } from "@/components/ui/button";
 export default function MobileMenu({
   mobileMenuOpen,
   setMobileMenuOpen,
-  productsOpen,
-  setProductsOpen,
   industriesOpen,
   setIndustriesOpen,
-  solutions,
   industries,
   onBookDemo,
 }: any) {
@@ -19,40 +16,13 @@ export default function MobileMenu({
   return (
     <div className="lg:hidden bg-white border-t">
       <div className="py-4 space-y-4 px-4">
-        <div className="space-y-2">
-          <button
-            onClick={() => setProductsOpen(!productsOpen)}
-            className="flex items-center justify-between w-full px-2 py-2 text-sm font-medium hover:bg-gray-100 rounded-md"
-          >
-            <span>Solutions</span>
-            <ChevronDown
-              className={`h-4 w-4 transition-transform ${
-                productsOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {productsOpen && (
-            <div className="pl-4 space-y-2 border-l-2 border-gray-200 ml-2">
-              {solutions.map((solution: any, index: number) => (
-                <Link
-                  key={index}
-                  href={solution.path}
-                  className="flex items-center gap-2 px-2 py-2 text-sm hover:bg-gray-100 rounded-md"
-                  onClick={() => {
-                    setProductsOpen(false);
-                    setMobileMenuOpen(false);
-                  }}
-                >
-                  <div className="bg-[#F5F3FF] p-1.5 rounded-md">
-                    {solution.icon}
-                  </div>
-                  <span>{solution.name}</span>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
+        <Link
+          href="/products"
+          className="block px-2 py-2 text-sm font-medium hover:bg-gray-100 rounded-md"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          Products
+        </Link>
 
         <div className="space-y-2">
           <button

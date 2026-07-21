@@ -2,7 +2,6 @@
 
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
-import AgentCarousel from "@/components/agent-carousel";
 import AnimateOnScroll from "@/components/animate-on-scroll";
 import LoadingScreen from "@/components/LoadingScreen";
 import HeroSection from "@/components/HeroSection";
@@ -10,14 +9,18 @@ import ServiceCard from "@/components/ServiceCard";
 import CompanyBlock from "@/components/CompanyBlock";
 import ValueCard from "@/components/ValueCard";
 import CircularLogo from "@/components/CircularLogo";
+import ProductCard from "@/components/products/ProductCard";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { servicesData } from "@/data/services";
 import { companyData } from "@/data/company";
 import { valuesData } from "@/data/values";
+import { products } from "@/data/products";
 import Chatbot from "@/components/Chatbot";
 
 export default function LandingPage() {
+  const router = useRouter();
   const [isClient, setIsClient] = useState(false);
 
   // Use useEffect to ensure we're only running client-side code
@@ -41,7 +44,7 @@ export default function LandingPage() {
           <HeroSection />
         </div>
 
-        {/* Features Section - Now using the AgentCarousel component */}
+        {/* Features Section - Products grid */}
         <section
           id="features"
           className="w-full py-8 md:py-16 lg:py-20 bg-muted/50"
@@ -53,9 +56,19 @@ export default function LandingPage() {
                 id="features-heading"
                 className="text-3xl font-bold text-[#6320ce] text-center mb-20 lg:mb-12"
               >
-                Our Solutions
+                Our Products
               </h2>
-              <AgentCarousel />
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+                {products.map((product) => (
+                  <ProductCard
+                    key={product.slug}
+                    product={product}
+                    onClick={() =>
+                      router.push(`/products?product=${product.slug}`)
+                    }
+                  />
+                ))}
+              </div>
             </AnimateOnScroll>
           </div>
         </section>

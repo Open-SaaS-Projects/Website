@@ -79,7 +79,7 @@ export default function HeroSection() {
                   asChild
                 >
                   <a href="#features-heading" onClick={scrollToFeatures}>
-                    Explore Our Solutions
+                    Explore Our Products
                   </a>
                 </Button>
               </motion.div>

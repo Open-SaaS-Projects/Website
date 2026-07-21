@@ -1,7 +1,15 @@
 "use client";
 
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import type { Product } from "@/data/products";
-import ProductLogo from "./ProductLogo";
+
+const logos: Record<string, string> = {
+  insight: "/products/makkn-insight.png",
+  desk: "/products/makkn-desk.png",
+  guard: "/products/makkn-guard.png",
+  docs: "/products/makkn-docs.png",
+};
 
 interface ProductCardProps {
   product: Product;
@@ -12,11 +20,27 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
   return (
     <button
       onClick={onClick}
-      className="group flex w-56 flex-col items-center gap-4 rounded-xl border border-[#7C4DFF]/20 bg-white p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-[#7C4DFF]/50 hover:shadow-lg"
+      className="group flex aspect-square w-full flex-col items-center justify-center gap-5 rounded-2xl border border-[#7C4DFF]/15 bg-white p-8 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#7C4DFF]/40 hover:shadow-xl"
     >
-      <ProductLogo slug={product.slug} size={72} />
-      <span className="text-base font-semibold text-gray-800">
-        {product.name}
+      <div className="flex h-12 items-center justify-center">
+        <Image
+          src={logos[product.slug]}
+          alt={product.name}
+          width={1179}
+          height={384}
+          className="h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+
+      <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7C4DFF]">
+        {product.category}
+      </span>
+
+      <span className="h-[3px] w-8 rounded-full bg-gradient-to-r from-[#6320ce] to-[#7C4DFF] transition-all duration-300 group-hover:w-14" />
+
+      <span className="flex items-center gap-1.5 text-sm font-semibold text-[#6320ce] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        Explore product
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
       </span>
     </button>
   );

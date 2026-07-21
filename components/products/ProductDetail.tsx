@@ -1,10 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/data/products";
-import ProductLogo from "./ProductLogo";
+
+const wordmarkLogos: Record<string, string> = {
+  insight: "/products/makkn-insight.png",
+  desk: "/products/makkn-desk.png",
+  guard: "/products/makkn-guard.png",
+  docs: "/products/makkn-docs.png",
+};
 
 interface ProductDetailProps {
   product: Product;
@@ -34,16 +41,19 @@ export default function ProductDetail({
             <button
               key={p.slug}
               onClick={() => onSelect(p.slug)}
-              className={`group flex flex-shrink-0 flex-col items-center gap-2 rounded-lg p-2 transition-colors lg:flex-row lg:justify-start ${
+              className={`flex flex-shrink-0 items-center justify-center rounded-lg p-2 transition-colors lg:w-full lg:justify-start ${
                 p.slug === product.slug
                   ? "bg-[#F5F3FF]"
                   : "hover:bg-[#F5F3FF]/60"
               }`}
             >
-              <ProductLogo slug={p.slug} size={40} />
-              <span className="text-xs font-medium text-gray-700 lg:text-sm">
-                {p.name.replace("MAKKN ", "")}
-              </span>
+              <Image
+                src={wordmarkLogos[p.slug]}
+                alt={p.name}
+                width={1179}
+                height={384}
+                className="h-7 w-auto object-contain"
+              />
             </button>
           ))}
         </div>
@@ -58,11 +68,15 @@ export default function ProductDetail({
           Products
         </button>
 
-        <div className="mb-8 flex items-center gap-4">
-          <ProductLogo slug={product.slug} size={56} />
-          <h1 className="text-3xl font-bold text-[#6320ce] lg:text-4xl">
-            {product.name}
-          </h1>
+        <div className="mb-8 flex h-14 items-center">
+          <Image
+            src={wordmarkLogos[product.slug]}
+            alt={product.name}
+            width={1179}
+            height={384}
+            priority
+            className="h-full w-auto object-contain"
+          />
         </div>
         <p className="mb-12 max-w-3xl text-lg leading-relaxed text-muted-foreground">
           {product.tagline}
