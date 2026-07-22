@@ -160,6 +160,7 @@ export default function MainNavigation() {
         industriesOpen={industriesOpen}
         setIndustriesOpen={setIndustriesOpen}
         industries={industries}
+        products={productsMenuItems}
       />
 
       <BookDemoDialog

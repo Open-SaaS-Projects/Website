@@ -24,7 +24,7 @@ export default function ServiceCard({
             {icon}
           </div>
           <h3 className="text-xl font-bold mb-2 shrink-0">{title}</h3>
-          <p className="text-base leading-relaxed text-gray-600 relative z-10 overflow-y-auto">
+          <p className="text-sm sm:text-base leading-relaxed text-gray-600 relative z-10 overflow-y-auto">
             {description}
           </p>
         </div>

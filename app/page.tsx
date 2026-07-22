@@ -9,7 +9,7 @@ import ServiceCard from "@/components/ServiceCard";
 import CompanyBlock from "@/components/CompanyBlock";
 import ValueCard from "@/components/ValueCard";
 import CircularLogo from "@/components/CircularLogo";
-import ProductCard from "@/components/products/ProductCard";
+import ProductsCarousel from "@/components/products/ProductsCarousel";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -58,15 +58,10 @@ export default function LandingPage() {
               >
                 Our Products
               </h2>
-              <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
-                {products.map((product) => (
-                  <ProductCard
-                    key={product.slug}
-                    product={product}
-                    onClick={() => router.push(`/products/${product.slug}`)}
-                  />
-                ))}
-              </div>
+              <ProductsCarousel
+                products={products}
+                onSelect={(product) => router.push(`/products/${product.slug}`)}
+              />
             </AnimateOnScroll>
           </div>
         </section>

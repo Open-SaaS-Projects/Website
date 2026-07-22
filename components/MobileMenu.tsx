@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const productsMenuItems = [
+const defaultProductsMenuItems = [
   { name: "Desk", slug: "desk" },
   { name: "Docs", slug: "docs" },
   { name: "Insight", slug: "insight" },
@@ -17,6 +17,7 @@ export default function MobileMenu({
   industriesOpen,
   setIndustriesOpen,
   industries,
+  products = defaultProductsMenuItems,
   onBookDemo,
 }: any) {
   const [productsOpen, setProductsOpen] = useState(false);
@@ -41,17 +42,22 @@ export default function MobileMenu({
 
           {productsOpen && (
             <div className="pl-4 space-y-2 border-l-2 border-gray-200 ml-2">
-              {productsMenuItems.map((item) => (
+              {products.map((item: any) => (
                 <Link
                   key={item.slug}
                   href={`/products/${item.slug}`}
-                  className="block px-2 py-2 text-sm hover:bg-gray-100 rounded-md"
+                  className="flex items-center gap-2 px-2 py-2 text-sm hover:bg-gray-100 rounded-md"
                   onClick={() => {
                     setProductsOpen(false);
                     setMobileMenuOpen(false);
                   }}
                 >
-                  {item.name}
+                  {item.icon && (
+                    <div className="bg-[#F5F3FF] p-1.5 rounded-md">
+                      {item.icon}
+                    </div>
+                  )}
+                  <span>{item.name}</span>
                 </Link>
               ))}
             </div>

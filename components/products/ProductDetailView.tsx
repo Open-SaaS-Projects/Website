@@ -17,7 +17,9 @@ export default function ProductDetailView({ product }: { product: Product }) {
         <ProductDetail
           product={product}
           allProducts={products}
-          onSelect={(slug) => router.push(`/products/${slug}`)}
+          onSelect={(slug) =>
+            router.push(`/products/${slug}`, { scroll: false })
+          }
           onBack={() => router.push("/#features")}
         />
       </main>
