@@ -72,7 +72,7 @@ export default function MainFooter() {
               {products.map((product) => (
                 <Link
                   key={product.slug}
-                  href={`/products?product=${product.slug}`}
+                  href={`/products/${product.slug}`}
                   className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
                 >
                   {product.name}

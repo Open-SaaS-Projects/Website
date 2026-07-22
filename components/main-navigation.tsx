@@ -9,15 +9,44 @@ import {
   ShoppingCart,
   HeartPulse,
   Factory,
+  Headset,
+  FileText,
+  PhoneCall,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import IndustriesDropdown from "./IndustriesDropdown";
+import ProductsDropdown from "./ProductsDropdown";
 import MobileMenu from "./MobileMenu";
 import BookDemoDialog from "./BookDemoDialog";
 
+const productsMenuItems = [
+  {
+    name: "Desk",
+    slug: "desk",
+    icon: <Headset className="h-4 w-4 text-[#6D2FD5]" />,
+  },
+  {
+    name: "Docs",
+    slug: "docs",
+    icon: <FileText className="h-4 w-4 text-[#6D2FD5]" />,
+  },
+  {
+    name: "Insight",
+    slug: "insight",
+    icon: <PhoneCall className="h-4 w-4 text-[#6D2FD5]" />,
+  },
+  {
+    name: "Guard",
+    slug: "guard",
+    icon: <ShieldCheck className="h-4 w-4 text-[#6D2FD5]" />,
+  },
+];
+
 export default function MainNavigation() {
   const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
@@ -69,16 +98,21 @@ export default function MainNavigation() {
       <div className="flex h-20 items-center justify-between">
         <Logo />
         <nav className="hidden lg:flex gap-6">
-          <Link
-            href="/products"
-            className="text-sm font-medium transition-colors hover:text-[#6D2FD5]"
-          >
-            Products
-          </Link>
+          <ProductsDropdown
+            items={productsMenuItems}
+            open={productsOpen}
+            setOpen={(open) => {
+              setProductsOpen(open);
+              if (open) setIndustriesOpen(false);
+            }}
+          />
           <IndustriesDropdown
             industries={industries}
             open={industriesOpen}
-            setOpen={(open) => setIndustriesOpen(open)}
+            setOpen={(open) => {
+              setIndustriesOpen(open);
+              if (open) setProductsOpen(false);
+            }}
           />
           <Link
             href="/#services"

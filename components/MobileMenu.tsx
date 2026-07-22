@@ -1,7 +1,15 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const productsMenuItems = [
+  { name: "Desk", slug: "desk" },
+  { name: "Docs", slug: "docs" },
+  { name: "Insight", slug: "insight" },
+  { name: "Guard", slug: "guard" },
+];
 
 export default function MobileMenu({
   mobileMenuOpen,
@@ -11,18 +19,44 @@ export default function MobileMenu({
   industries,
   onBookDemo,
 }: any) {
+  const [productsOpen, setProductsOpen] = useState(false);
+
   if (!mobileMenuOpen) return null;
 
   return (
     <div className="lg:hidden bg-white border-t">
       <div className="py-4 space-y-4 px-4">
-        <Link
-          href="/products"
-          className="block px-2 py-2 text-sm font-medium hover:bg-gray-100 rounded-md"
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Products
-        </Link>
+        <div className="space-y-2">
+          <button
+            onClick={() => setProductsOpen(!productsOpen)}
+            className="flex items-center justify-between w-full px-2 py-2 text-sm font-medium hover:bg-gray-100 rounded-md"
+          >
+            <span>Products</span>
+            <ChevronDown
+              className={`h-4 w-4 transition-transform ${
+                productsOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {productsOpen && (
+            <div className="pl-4 space-y-2 border-l-2 border-gray-200 ml-2">
+              {productsMenuItems.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/products/${item.slug}`}
+                  className="block px-2 py-2 text-sm hover:bg-gray-100 rounded-md"
+                  onClick={() => {
+                    setProductsOpen(false);
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
 
         <div className="space-y-2">
           <button

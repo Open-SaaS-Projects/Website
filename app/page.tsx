@@ -63,9 +63,7 @@ export default function LandingPage() {
                   <ProductCard
                     key={product.slug}
                     product={product}
-                    onClick={() =>
-                      router.push(`/products?product=${product.slug}`)
-                    }
+                    onClick={() => router.push(`/products/${product.slug}`)}
                   />
                 ))}
               </div>

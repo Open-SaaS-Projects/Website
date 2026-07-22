@@ -19,7 +19,12 @@ export default function IndustriesDropdown({
         onClick={() => controlledSetOpen?.(!controlledOpen)}
         className="flex items-center gap-1 text-sm font-medium transition-colors hover:text-[#6D2FD5]"
       >
-        Industries <ChevronDown className="h-4 w-4" />
+        Industries{" "}
+        <ChevronDown
+          className={`h-4 w-4 transition-transform ${
+            controlledOpen ? "rotate-180" : ""
+          }`}
+        />
       </button>
       {controlledOpen && (
         <div className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-lg p-3 min-w-[280px] z-50 border border-gray-100">
