@@ -20,7 +20,6 @@ export default function ProductDetailView({ product }: { product: Product }) {
           onSelect={(slug) =>
             router.push(`/products/${slug}`, { scroll: false })
           }
-          onBack={() => router.push("/#features")}
         />
       </main>
       <MainFooter />
