@@ -74,7 +74,7 @@ export const servicesData = [
     id: "makkn-erp",
     title: "MAKKN ERP",
     description:
-      "End-to-end Odoo ERP implementation that unifies sales, accounting, inventory, HR, and operations into one connected system, enhanced with AI-powered features. We tailor every deployment to your business processes, turning a standard ERP rollout into an intelligent, self-improving operating system for your company.",
+      "End-to-end Odoo ERP implementation that unifies sales, accounting, inventory, HR, and operations into one connected system, enhanced with AI-powered features.",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
