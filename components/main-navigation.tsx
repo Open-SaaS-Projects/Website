@@ -3,31 +3,50 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import {
-  ChevronDown,
   Menu,
   X,
-  MessageSquare,
-  Users,
-  FileText,
-  BarChart3,
-  TrendingUp,
-  Database,
   Building2,
   ShoppingCart,
   HeartPulse,
   Factory,
+  Headset,
+  FileText,
+  PhoneCall,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
-import SolutionsDropdown from "./SolutionsDropdown";
 import IndustriesDropdown from "./IndustriesDropdown";
+import ProductsDropdown from "./ProductsDropdown";
 import MobileMenu from "./MobileMenu";
 import BookDemoDialog from "./BookDemoDialog";
 
+const productsMenuItems = [
+  {
+    name: "Desk",
+    slug: "desk",
+    icon: <Headset className="h-4 w-4 text-[#6D2FD5]" />,
+  },
+  {
+    name: "Docs",
+    slug: "docs",
+    icon: <FileText className="h-4 w-4 text-[#6D2FD5]" />,
+  },
+  {
+    name: "Insight",
+    slug: "insight",
+    icon: <PhoneCall className="h-4 w-4 text-[#6D2FD5]" />,
+  },
+  {
+    name: "Guard",
+    slug: "guard",
+    icon: <ShieldCheck className="h-4 w-4 text-[#6D2FD5]" />,
+  },
+];
+
 export default function MainNavigation() {
-  const [productsOpen, setProductsOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [demoDialogOpen, setDemoDialogOpen] = useState(false);
@@ -36,35 +55,6 @@ export default function MainNavigation() {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  // Solution items with icons and new names/order
-  const solutions = [
-    {
-      name: "Customer Support Intelligence",
-      path: "/customer-support-agent",
-      icon: <MessageSquare className="h-4 w-4 text-[#6D2FD5]" />,
-    },
-    {
-      name: "Document Intelligence",
-      path: "/data-structuring-engine",
-      icon: <FileText className="h-4 w-4 text-[#6D2FD5]" />,
-    },
-    {
-      name: "Data Intelligence",
-      path: "/data-intelligence",
-      icon: <Database className="h-4 w-4 text-[#6D2FD5]" />,
-    },
-    {
-      name: "Recommendation Engine",
-      path: "/recommendation-engine",
-      icon: <BarChart3 className="h-4 w-4 text-[#6D2FD5]" />,
-    },
-    {
-      name: "Growth Intelligence",
-      path: "/marketing-sales-agent",
-      icon: <TrendingUp className="h-4 w-4 text-[#6D2FD5]" />,
-    },
-  ];
 
   // Industry items with icons
   const industries = [
@@ -108,11 +98,11 @@ export default function MainNavigation() {
       <div className="flex h-20 items-center justify-between">
         <Logo />
         <nav className="hidden lg:flex gap-6">
-          <SolutionsDropdown
-            solutions={solutions}
-            open={solutionsOpen}
+          <ProductsDropdown
+            items={productsMenuItems}
+            open={productsOpen}
             setOpen={(open) => {
-              setSolutionsOpen(open);
+              setProductsOpen(open);
               if (open) setIndustriesOpen(false);
             }}
           />
@@ -121,7 +111,7 @@ export default function MainNavigation() {
             open={industriesOpen}
             setOpen={(open) => {
               setIndustriesOpen(open);
-              if (open) setSolutionsOpen(false);
+              if (open) setProductsOpen(false);
             }}
           />
           <Link
@@ -167,12 +157,10 @@ export default function MainNavigation() {
       <MobileMenu
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
-        productsOpen={productsOpen}
-        setProductsOpen={setProductsOpen}
         industriesOpen={industriesOpen}
         setIndustriesOpen={setIndustriesOpen}
-        solutions={solutions}
         industries={industries}
+        products={productsMenuItems}
       />
 
       <BookDemoDialog

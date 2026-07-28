@@ -2,7 +2,6 @@
 
 import MainNavigation from "@/components/main-navigation";
 import MainFooter from "@/components/main-footer";
-import AgentCarousel from "@/components/agent-carousel";
 import AnimateOnScroll from "@/components/animate-on-scroll";
 import LoadingScreen from "@/components/LoadingScreen";
 import HeroSection from "@/components/HeroSection";
@@ -10,14 +9,18 @@ import ServiceCard from "@/components/ServiceCard";
 import CompanyBlock from "@/components/CompanyBlock";
 import ValueCard from "@/components/ValueCard";
 import CircularLogo from "@/components/CircularLogo";
+import ProductsCarousel from "@/components/products/ProductsCarousel";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { servicesData } from "@/data/services";
 import { companyData } from "@/data/company";
 import { valuesData } from "@/data/values";
+import { products } from "@/data/products";
 import Chatbot from "@/components/Chatbot";
 
 export default function LandingPage() {
+  const router = useRouter();
   const [isClient, setIsClient] = useState(false);
 
   // Use useEffect to ensure we're only running client-side code
@@ -37,11 +40,11 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <div className="container max-w-7xl mx-auto px-4 py-8 md:py-16 lg:py-20">
+        <div className="container max-w-7xl mx-auto px-4">
           <HeroSection />
         </div>
 
-        {/* Features Section - Now using the AgentCarousel component */}
+        {/* Features Section - Products grid */}
         <section
           id="features"
           className="w-full py-8 md:py-16 lg:py-20 bg-muted/50"
@@ -53,9 +56,12 @@ export default function LandingPage() {
                 id="features-heading"
                 className="text-3xl font-bold text-[#6320ce] text-center mb-20 lg:mb-12"
               >
-                Our Solutions
+                Our Products
               </h2>
-              <AgentCarousel />
+              <ProductsCarousel
+                products={products}
+                onSelect={(product) => router.push(`/products/${product.slug}`)}
+              />
             </AnimateOnScroll>
           </div>
         </section>
@@ -77,7 +83,7 @@ export default function LandingPage() {
               </div>
             </AnimateOnScroll>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
               {servicesData.map((service, index) => (
                 <ServiceCard
                   key={service.id}

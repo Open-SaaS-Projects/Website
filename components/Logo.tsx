@@ -6,14 +6,14 @@ export default function Logo() {
   const [logoError, setLogoError] = useState(false);
 
   return (
-    <Link href="/" className="flex items-center">
+    <Link href="/" className="relative flex h-12 w-40 shrink-0 items-center justify-center">
       {logoError ? (
-        <div className="h-10 text-[#6320ce] font-bold text-2xl">MAKKN</div>
+        <div className="text-2xl font-bold text-[#6320ce]">MAKKN</div>
       ) : (
         <img
           src="/makkn-logo.webp"
           alt="MAKKN Logo"
-          className="h-40 w-auto"
+          className="pointer-events-none absolute h-40 w-auto max-w-none"
           onError={() => setLogoError(true)}
         />
       )}

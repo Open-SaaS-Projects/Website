@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Linkedin, MapPin, Mail, Phone } from "lucide-react";
+import { products } from "@/data/products";
 import { useState, useEffect } from "react";
 
 export default function MainFooter() {
@@ -64,40 +65,19 @@ export default function MainFooter() {
             </div>
           </div>
 
-          {/* Solutions column - equal width */}
+          {/* Products column - equal width */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold">Solutions</h3>
+            <h3 className="text-sm font-bold">Products</h3>
             <nav className="flex flex-col gap-2">
-              <Link
-                href="/customer-support-agent"
-                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
-              >
-                Customer Support Intelligence
-              </Link>
-              <Link
-                href="/data-structuring-engine"
-                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
-              >
-                Document Intelligence
-              </Link>
-              <Link
-                href="/data-intelligence"
-                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
-              >
-                Data Intelligence
-              </Link>
-              <Link
-                href="/recommendation-engine"
-                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
-              >
-                Recommendation Engine
-              </Link>
-              <Link
-                href="/marketing-sales-agent"
-                className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
-              >
-                Growth Intelligence
-              </Link>
+              {products.map((product) => (
+                <Link
+                  key={product.slug}
+                  href={`/products/${product.slug}`}
+                  className="text-sm text-muted-foreground hover:text-[#6D2FD5]"
+                >
+                  {product.name}
+                </Link>
+              ))}
             </nav>
           </div>
 

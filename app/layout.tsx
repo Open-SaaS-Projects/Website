@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.webp",
   },
-  metadataBase: new URL('https://makkn.com'),
+  metadataBase: new URL("https://makkn.com"),
   openGraph: {
     title: "MAKKN - AI Solutions for Businesses",
     description:
@@ -45,29 +45,31 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "MAKKN Technologies",
-    "url": "https://makkn.com",
-    "logo": "https://makkn.com/makkn-logo.webp",
-    "foundingDate": "2025",
-    "address": {
+    name: "MAKKN Technologies",
+    url: "https://makkn.com",
+    logo: "https://makkn.com/makkn-logo.webp",
+    foundingDate: "2025",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Cairo",
-      "addressCountry": "EG"
+      addressLocality: "Cairo",
+      addressCountry: "EG",
     },
-    "description": "AI solutions company providing intelligent automation, data intelligence, and custom AI agents for businesses.",
-    "sameAs": []
+    description:
+      "AI solutions company providing intelligent automation, data intelligence, and custom AI agents for businesses.",
+    sameAs: [],
   };
 
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "MAKKN Technologies",
-    "url": "https://makkn.com",
-    "description": "AI-powered solutions that drive measurable business value through intelligent automation and data intelligence.",
-    "publisher": {
+    name: "MAKKN Technologies",
+    url: "https://makkn.com",
+    description:
+      "AI-powered solutions that drive measurable business value through intelligent automation and data intelligence.",
+    publisher: {
       "@type": "Organization",
-      "name": "MAKKN Technologies"
-    }
+      name: "MAKKN Technologies",
+    },
   };
 
   return (
@@ -87,9 +89,7 @@ export default function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
-        <ContextProvider>
-          {children}
-        </ContextProvider>
+        <ContextProvider>{children}</ContextProvider>
       </body>
     </html>
   );

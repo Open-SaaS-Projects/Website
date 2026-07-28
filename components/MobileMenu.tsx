@@ -1,19 +1,27 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const defaultProductsMenuItems = [
+  { name: "Desk", slug: "desk" },
+  { name: "Docs", slug: "docs" },
+  { name: "Insight", slug: "insight" },
+  { name: "Guard", slug: "guard" },
+];
 
 export default function MobileMenu({
   mobileMenuOpen,
   setMobileMenuOpen,
-  productsOpen,
-  setProductsOpen,
   industriesOpen,
   setIndustriesOpen,
-  solutions,
   industries,
+  products = defaultProductsMenuItems,
   onBookDemo,
 }: any) {
+  const [productsOpen, setProductsOpen] = useState(false);
+
   if (!mobileMenuOpen) return null;
 
   return (
@@ -24,7 +32,7 @@ export default function MobileMenu({
             onClick={() => setProductsOpen(!productsOpen)}
             className="flex items-center justify-between w-full px-2 py-2 text-sm font-medium hover:bg-gray-100 rounded-md"
           >
-            <span>Solutions</span>
+            <span>Products</span>
             <ChevronDown
               className={`h-4 w-4 transition-transform ${
                 productsOpen ? "rotate-180" : ""
@@ -34,20 +42,22 @@ export default function MobileMenu({
 
           {productsOpen && (
             <div className="pl-4 space-y-2 border-l-2 border-gray-200 ml-2">
-              {solutions.map((solution: any, index: number) => (
+              {products.map((item: any) => (
                 <Link
-                  key={index}
-                  href={solution.path}
+                  key={item.slug}
+                  href={`/products/${item.slug}`}
                   className="flex items-center gap-2 px-2 py-2 text-sm hover:bg-gray-100 rounded-md"
                   onClick={() => {
                     setProductsOpen(false);
                     setMobileMenuOpen(false);
                   }}
                 >
-                  <div className="bg-[#F5F3FF] p-1.5 rounded-md">
-                    {solution.icon}
-                  </div>
-                  <span>{solution.name}</span>
+                  {item.icon && (
+                    <div className="bg-[#F5F3FF] p-1.5 rounded-md">
+                      {item.icon}
+                    </div>
+                  )}
+                  <span>{item.name}</span>
                 </Link>
               ))}
             </div>
