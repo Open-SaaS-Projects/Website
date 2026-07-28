@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,6 +19,28 @@ interface ProductDetailProps {
   product: Product;
   allProducts: Product[];
   onSelect: (slug: string) => void;
+}
+
+function HighlightImage({ src, alt }: { src: string; alt: string }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm md:w-1/2">
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-200" />
+      )}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(min-width: 768px) 50vw, 100vw"
+        className={`object-contain transition-opacity duration-300 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
 }
 
 export default function ProductDetail({
@@ -88,15 +110,7 @@ export default function ProductDetail({
                   }`}
                 >
                   {highlight.image ? (
-                    <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm md:w-1/2">
-                      <Image
-                        src={highlight.image}
-                        alt={highlight.title}
-                        fill
-                        sizes="(min-width: 768px) 50vw, 100vw"
-                        className="object-contain"
-                      />
-                    </div>
+                    <HighlightImage src={highlight.image} alt={highlight.title} />
                   ) : (
                     <div className="flex aspect-video w-full items-center justify-center rounded-xl bg-gray-200 text-sm font-medium text-gray-400 md:w-1/2">
                       Screenshot
