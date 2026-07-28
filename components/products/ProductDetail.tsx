@@ -87,9 +87,21 @@ export default function ProductDetail({
                     index % 2 === 1 ? "md:flex-row-reverse" : ""
                   }`}
                 >
-                  <div className="flex aspect-video w-full items-center justify-center rounded-xl bg-gray-200 text-sm font-medium text-gray-400 md:w-1/2">
-                    Screenshot
-                  </div>
+                  {highlight.image ? (
+                    <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm md:w-1/2">
+                      <Image
+                        src={highlight.image}
+                        alt={highlight.title}
+                        fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex aspect-video w-full items-center justify-center rounded-xl bg-gray-200 text-sm font-medium text-gray-400 md:w-1/2">
+                      Screenshot
+                    </div>
+                  )}
                   <div className="w-full text-center md:w-1/2 md:text-left">
                     <h3 className="mb-2 text-xl font-semibold text-gray-900">
                       {highlight.title}
