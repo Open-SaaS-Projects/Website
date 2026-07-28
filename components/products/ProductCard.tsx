@@ -20,7 +20,7 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
   return (
     <button
       onClick={onClick}
-      className="group flex aspect-square w-full flex-col items-center justify-start gap-5 rounded-2xl border border-[#7C4DFF]/15 bg-white p-8 pt-10 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#7C4DFF]/40 hover:shadow-xl"
+      className="group flex aspect-square w-full flex-col items-center justify-start lg:h-72 gap-5 rounded-2xl border border-[#7C4DFF]/15 bg-white p-8 pt-10 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#7C4DFF]/40 hover:shadow-xl"
     >
       <div className="flex h-12 items-center justify-center">
         <Image
