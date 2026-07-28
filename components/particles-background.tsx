@@ -43,9 +43,23 @@ export default function ParticlesBackground() {
       resizeCanvas()
       window.addEventListener("resize", resizeCanvas)
 
+      // The hero section's height depends on layout (min-h-[calc(100vh-...)]),
+      // which can settle a frame after mount - a plain window "resize" listener
+      // misses that, leaving the canvas's pixel size stale and CSS-stretched.
+      // ResizeObserver keeps canvas.width/height in sync with the actual box.
+      const container = canvas.parentElement
+      const resizeObserver = container
+        ? new ResizeObserver(() => resizeCanvas())
+        : null
+      if (container && resizeObserver) {
+        resizeObserver.observe(container)
+      }
+
       // Create particles
       const particles: Particle[] = []
-      const particleCount = Math.min(50, window.innerWidth / 20) // Reduce particles on smaller screens
+      // Scale particle count with canvas area so density stays consistent
+      // regardless of how tall/short the container ends up being
+      const particleCount = Math.min(100, Math.max(20, Math.floor((canvas.width * canvas.height) / 12000)))
       // Updated colors to match the new color palette
       const colors = ["#6320ce", "#6D2FD5", "#E6DFFF"]
 
@@ -115,6 +129,7 @@ export default function ParticlesBackground() {
 
       return () => {
         window.removeEventListener("resize", resizeCanvas)
+        resizeObserver?.disconnect()
         if (animationFrame) {
           cancelAnimationFrame(animationFrame)
         }

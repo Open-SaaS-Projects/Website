@@ -184,7 +184,7 @@ export const products: Product[] = [
         title: "Violation Notification System",
         description:
           "The moment a violation is detected, the right person is notified instantly via the channel you choose, so incidents are addressed within minutes, not at the end of a shift.",
-        image: "/Guard/Violation Notification System.png",
+        image: "/Guard/Violation Notification System.jpg",
       },
       {
         title: "Configurable Safety Requirements",

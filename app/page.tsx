@@ -40,7 +40,7 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <div className="container max-w-7xl mx-auto px-4 py-8 md:py-16 lg:py-20">
+        <div className="container max-w-7xl mx-auto px-4">
           <HeroSection />
         </div>
 

@@ -43,7 +43,7 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
           {product.tagline}
         </p>
         <span className="col-start-1 row-start-1 flex items-center gap-1.5 text-sm font-semibold text-[#6320ce] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          Explore product
+          Explore Product
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </span>
       </div>
