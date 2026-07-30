@@ -6,7 +6,29 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import type { Product } from "@/data/products";
+
+const DESKTOP_QUERY = "(min-width: 1024px)";
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia(DESKTOP_QUERY);
+    const onChange = () => setIsDesktop(mql.matches);
+    onChange();
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  return isDesktop;
+}
 
 const wordmarkLogos: Record<string, string> = {
   insight: "/products/makkn-insight.png",
@@ -21,25 +43,62 @@ interface ProductDetailProps {
   onSelect: (slug: string) => void;
 }
 
-function HighlightImage({ src, alt }: { src: string; alt: string }) {
+function HighlightImage({
+  src,
+  alt,
+  title,
+  description,
+}: {
+  src: string;
+  alt: string;
+  title: string;
+  description: string;
+}) {
   const [loaded, setLoaded] = useState(false);
+  const [open, setOpen] = useState(false);
+  const isDesktop = useIsDesktop();
 
   return (
-    <div className="relative aspect-[2/1] w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm md:w-1/2">
-      {!loaded && (
-        <div className="absolute inset-0 animate-pulse bg-gray-200" />
-      )}
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(min-width: 768px) 50vw, 100vw"
-        className={`object-contain transition-opacity duration-300 ${
-          loaded ? "opacity-100" : "opacity-0"
-        }`}
-        onLoad={() => setLoaded(true)}
-      />
-    </div>
+    <>
+      <div
+        onClick={() => isDesktop && setOpen(true)}
+        className="relative aspect-[2/1] w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm transition-transform duration-300 md:w-1/2 lg:cursor-pointer lg:hover:scale-105"
+      >
+        {!loaded && (
+          <div className="absolute inset-0 animate-pulse bg-gray-200" />
+        )}
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className={`object-contain transition-opacity duration-300 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+          onLoad={() => setLoaded(true)}
+        />
+      </div>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="flex w-[90vw] max-w-[90vw] max-h-[85vh] items-start gap-8 p-8">
+          <div className="w-[320px] flex-shrink-0">
+            <DialogTitle className="mb-3 text-2xl">{title}</DialogTitle>
+            <DialogDescription className="text-base leading-relaxed">
+              {description}
+            </DialogDescription>
+          </div>
+          <div className="relative aspect-[2/1] flex-1 overflow-hidden rounded-xl bg-gray-50">
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              sizes="60vw"
+              className="object-contain"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
@@ -110,7 +169,12 @@ export default function ProductDetail({
                   }`}
                 >
                   {highlight.image ? (
-                    <HighlightImage src={highlight.image} alt={highlight.title} />
+                    <HighlightImage
+                      src={highlight.image}
+                      alt={highlight.title}
+                      title={highlight.title}
+                      description={highlight.description}
+                    />
                   ) : (
                     <div className="flex aspect-video w-full items-center justify-center rounded-xl bg-gray-200 text-sm font-medium text-gray-400 md:w-1/2">
                       Screenshot
