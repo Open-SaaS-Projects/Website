@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
       # Build args for potential customization
       args:
-        NODE_VERSION: 20
+        NODE_VERSION: 24
     image: makkn-landing:latest
     container_name: makkn-landing-web
     ports:

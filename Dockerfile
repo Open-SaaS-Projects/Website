@@ -1,6 +1,6 @@
 # Multi-stage Docker build for Next.js application with pnpm
 # Stage 1: Base image with pnpm
-FROM node:20-alpine AS base
+FROM node:24-alpine AS base
 
 # Install pnpm globally and curl for health checks
 RUN npm install -g pnpm@latest && apk add --no-cache curl
